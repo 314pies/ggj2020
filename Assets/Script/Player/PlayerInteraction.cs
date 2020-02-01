@@ -37,17 +37,18 @@ namespace CliffLeeCL
             // Pick up / drop items
             if (Input.GetKeyDown(UseKey))
             {
+
+                if(CurrentLaunchItem!=null) //Launch item
+                {
+                    LauchItem(ref CurrentLaunchItem);
+                }
                 //Pick item
-                if(CurrendHoldingItem == null)
+                if (CurrendHoldingItem == null)
                 {
                     var itemFound = ItemInRange(PickingRadius);
                     CurrendHoldingItem = itemFound;
                     if(CurrendHoldingItem != null)
                      OnItemPicked(CurrendHoldingItem);
-                }
-                else//Launch item
-                {
-                    LauchItem(ref CurrendHoldingItem);
                 }
             }
         }
@@ -67,6 +68,21 @@ namespace CliffLeeCL
             obj.transform.parent = transform;
             obj.transform.localPosition = HoldingPosition;
             obj.GetComponent<Rigidbody2D>().isKinematic = true;
+        }
+
+        public void RemoveHoldingItem()
+        {
+            Destroy(CurrendHoldingItem);
+            CurrendHoldingItem = null;
+        }
+
+        public GameObject CurrentLaunchItem;
+        public void SetLaunchingItem(GameObject objectToLaunch)
+        {
+            if (CurrentLaunchItem != null) {
+                //Clean up current obj
+            }
+            CurrentLaunchItem = objectToLaunch;
         }
 
         public float LaunchForce = 10.0f;
