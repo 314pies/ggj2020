@@ -12,11 +12,30 @@ public class Soldier : MonoBehaviour
     float hitBackOverTime = 0;
     public float PushBaseSpeed = 3;
     public float PushBaseTime = 1;
+    public Vector2 knockbackForce = Vector2.right;
 
     public ItemSetting WeaponItem = null;
     public ItemSetting EquipmentItem = null;
 
-    
+    /// <summary>
+    /// Define where the checker should be relatively to player.
+    /// </summary>
+    [Header("Ground check")]
+    public Vector3 checkerPositionOffset = Vector3.zero;
+    /// <summary>
+    /// Define how large the checker is.
+    /// </summary>
+    public float checkerRadius = 1.0f;
+    /// <summary>
+    /// Define how many layers the checker will check.
+    /// </summary>
+    public LayerMask checkLayer;
+    /// <summary>
+    /// Is true when player is on the ground.
+    /// </summary>
+    bool isGrounded = true;
+
+
     public float GetAtkPushSpeed()
     {
         float totalPushSpeed = PushBaseSpeed + (WeaponItem != null ? WeaponItem.addPushSpeed : 0) + (EquipmentItem != null ? EquipmentItem.addPushSpeed : 0);
@@ -26,7 +45,7 @@ public class Soldier : MonoBehaviour
     public float GetAtkPushTime()
     {
         float totalPushTime = PushBaseTime + (WeaponItem != null ? WeaponItem.addPushTime : 0) + (EquipmentItem != null ? EquipmentItem.addPushTime : 0);
-        return PushBaseTime;
+        return totalPushTime;
     }
 
     private void Awake()
@@ -45,16 +64,36 @@ public class Soldier : MonoBehaviour
         switch (soldierState)
         {
             case SoldierStateEnum.Move:
-                Move();
+                if (isGrounded)
+                    Move();
                 break;
             case SoldierStateEnum.HitBack:
                 HitBack();
                 break;
         }
+        UpdateIsGrounded();
+    }
+
+    /// <summary>
+    /// Check whether the player is grounded.
+    /// </summary>
+    private void UpdateIsGrounded()
+    {
+        if (Physics2D.OverlapCircle(transform.position + checkerPositionOffset, checkerRadius, checkLayer))
+            isGrounded = true;
+        else
+            isGrounded = false;
     }
 
     private void OnHit(GameObject hit)
     {
+        if (hit.CompareTag("Soldier"))
+        {
+            Rigidbody2D rigid = hit.GetComponent<Rigidbody2D>();
+            if (rigid)
+                Knockback(rigid);
+        }
+
         Unit unit = hit.GetComponent<Unit>();
         if (unit != null)
         {
@@ -139,14 +178,31 @@ public class Soldier : MonoBehaviour
     {
         if(hitBackOverTime <= hitBackTime)
         {
-            Vector2 force = side == SideEnem.Left ? Vector2.left : Vector2.right;
+            /*Vector2 force = side == SideEnem.Left ? Vector2.left : Vector2.right;
             force = force * Time.deltaTime;
-            transform.Translate(force * (hitBackSpeed * (hitBackOverTime / hitBackTime)));
+            transform.Translate(force * (hitBackSpeed * (hitBackOverTime / hitBackTime)));*/
         }
         else
         {
             soldierState = SoldierStateEnum.Move;
         }
         hitBackOverTime += Time.deltaTime;
+    }
+
+    void Knockback(Rigidbody2D rigid)
+    {
+        float dir = side == SideEnem.Left ? 1.0f : -1.0f;
+        Vector2 newKnockbackForce = new Vector2(dir * knockbackForce.x, knockbackForce.y);
+
+        rigid.AddForce(newKnockbackForce * GetAtkPushSpeed(), ForceMode2D.Impulse);
+    }
+
+    /// <summary>
+    /// Implement this OnDrawGizmosSelected if you want to draw gizmos only if the object is selected.
+    /// </summary>
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position + checkerPositionOffset, checkerRadius);
     }
 }
