@@ -55,15 +55,15 @@ public class Soldier : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnHit(GameObject hit)
     {
-        Unit unit = other.GetComponent<Unit>();
-        if(unit != null)
+        Unit unit = hit.GetComponent<Unit>();
+        if (unit != null)
         {
             switch (unit.UnitType)
             {
                 case UnitTypeEnum.Soldier:
-                    Soldier other_Soldier = other.GetComponent<Soldier>();
+                    Soldier other_Soldier = hit.GetComponent<Soldier>();
                     if (other_Soldier != null)
                     {
                         if (other_Soldier.side != side && soldierState == SoldierStateEnum.Move)
@@ -73,25 +73,25 @@ public class Soldier : MonoBehaviour
                             hitBackSpeed = other_Soldier.GetAtkPushSpeed();
                             hitBackTime = other_Soldier.GetAtkPushTime();
 
-                            if(WeaponItem != null && EquipmentItem != null)
+                            if (WeaponItem != null && EquipmentItem != null)
                             {
                                 if (Random.Range(0, 1) == 0)
                                 {
                                     ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
                                     WeaponItem = null;
                                 }
-                                else 
+                                else
                                 {
                                     ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
                                     EquipmentItem = null;
                                 }
                             }
-                           else if(WeaponItem != null)
+                            else if (WeaponItem != null)
                             {
                                 ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
                                 WeaponItem = null;
                             }
-                            else if(EquipmentItem != null)
+                            else if (EquipmentItem != null)
                             {
                                 ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
                                 EquipmentItem = null;
@@ -100,16 +100,16 @@ public class Soldier : MonoBehaviour
                     }
                     break;
                 case UnitTypeEnum.Item:
-                    ItemBase other_item = other.GetComponent<ItemBase>();
-                    if(other_item != null && other_item.itemSetting.ItemState == ItemStateEnum.New)
+                    ItemBase other_item = hit.GetComponent<ItemBase>();
+                    if (other_item != null && other_item.itemSetting.ItemState == ItemStateEnum.New)
                     {
-                        if(WeaponItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Weapon)
+                        if (WeaponItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Weapon)
                         {
                             WeaponItem = new ItemSetting();
                             WeaponItem.Clone(other_item.itemSetting);
                             Destroy(other_item.gameObject);
                         }
-                        if(EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Equipment)
+                        if (EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Equipment)
                         {
                             EquipmentItem = new ItemSetting();
                             EquipmentItem.Clone(other_item.itemSetting);
@@ -119,7 +119,16 @@ public class Soldier : MonoBehaviour
                     break;
             }
         }
-       
+    }
+
+    private void OnTriggerEnter2D(Collider2D hit)
+    {
+        OnHit(hit.gameObject);
+    }
+
+    void OnCollisionEnter2D(Collision2D hit)
+    {
+        OnHit(hit.gameObject);
     }
 
     private void Move()
