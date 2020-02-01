@@ -12,9 +12,9 @@ namespace CliffLeeCL
         /// <summary>
         /// Is called when menu button is called. Return to the menu.
         /// </summary>
-        public void StartButtonCallback()
+        public void StartButtonCallback(int levelIndex)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(levelIndex);
             AudioManager.Instance.PlaySound(AudioManager.AudioName.ButtonClicked);
         }
 
