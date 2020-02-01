@@ -37,13 +37,10 @@ namespace CliffLeeCL
             // Pick up / drop items
             if (Input.GetKeyDown(UseKey))
             {
-
                 if(CurrentLaunchItem!=null) //Launch item
                 {
                     LauchItem(ref CurrentLaunchItem);
-                }
-                //Pick item
-                if (CurrendHoldingItem == null)
+                }else if (CurrendHoldingItem == null)//Pick item
                 {
                     var itemFound = ItemInRange(PickingRadius);
                     CurrendHoldingItem = itemFound;
@@ -83,6 +80,7 @@ namespace CliffLeeCL
                 //Clean up current obj
             }
             CurrentLaunchItem = objectToLaunch;
+            OnItemPicked(CurrentLaunchItem);
         }
 
         public float LaunchForce = 10.0f;
