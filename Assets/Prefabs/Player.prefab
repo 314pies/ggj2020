@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2884973699154522479}
   - component: {fileID: 2995540120183661949}
+  - component: {fileID: 2995540063885360651}
   - component: {fileID: 3095773213570670279}
   - component: {fileID: 2933790635413651583}
   - component: {fileID: 2945352615191653319}
   - component: {fileID: 2978792179718219645}
-  - component: {fileID: 2995540063885360651}
   - component: {fileID: 2995540121406749245}
   - component: {fileID: 2995540123260651067}
   - component: {fileID: 2995540122838717767}
@@ -61,6 +61,30 @@ MonoBehaviour:
   CurrentLaunchItem: {fileID: 0}
   LaunchForce: 10
   LaunchReadyPosition: {x: 0, y: 3}
+--- !u!114 &2995540063885360651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2883645402280380837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff7867022ccb5e419fb6b5c07b04dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementType: 0
+  sprintEffect: {fileID: 0}
+  canSprint: 1
+  sprintKey: 304
+  canJump: 1
+  checkerPositionOffset: {x: 0, y: 0, z: 0}
+  checkerRadius: 1
+  checkLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  LeftKey: 97
+  RightKey: 100
 --- !u!212 &3095773213570670279
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -177,28 +201,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2995540063885360651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2883645402280380837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff7867022ccb5e419fb6b5c07b04dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  movementType: 0
-  sprintEffect: {fileID: 0}
-  canSprint: 1
-  sprintKey: 304
-  canJump: 1
-  checkerPositionOffset: {x: 0, y: 0, z: 0}
-  checkerRadius: 1
-  checkLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &2995540121406749245
 MonoBehaviour:
   m_ObjectHideFlags: 0
