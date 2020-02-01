@@ -492,7 +492,7 @@ MonoBehaviour:
   HoldingPosition: {x: 0, y: 2}
   Arrow: {fileID: 1870914340}
   CurrentLaunchItem: {fileID: 0}
-  LaunchForce: 10
+  LaunchForce: 14.88
 --- !u!114 &2995540063885360651
 MonoBehaviour:
   m_ObjectHideFlags: 0
