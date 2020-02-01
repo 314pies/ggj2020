@@ -211,6 +211,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1096913207636311026, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588469438740180638, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: WeaponItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 1588469438740180638, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: EquipmentItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432785308968049968, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: WeaponItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432785308968049968, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: EquipmentItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636962124729080318, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: WeaponItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 5636962124729080318, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: EquipmentItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
     - target: {fileID: 6562557135736155363, guid: c9c60223d2750fb46b123ccbd3602944,
         type: 3}
       propertyPath: m_Name
@@ -270,6 +305,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422680462324741329, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: WeaponItem.ResourcePath
+      value: Prefab/ItemSample
+      objectReference: {fileID: 0}
+    - target: {fileID: 8422680462324741329, guid: c9c60223d2750fb46b123ccbd3602944,
+        type: 3}
+      propertyPath: EquipmentItem.ResourcePath
+      value: Prefab/ItemSample
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9c60223d2750fb46b123ccbd3602944, type: 3}

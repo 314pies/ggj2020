@@ -31,8 +31,6 @@ public class Soldier : MonoBehaviour
 
     private void Awake()
     {
-        WeaponItem = null;
-        EquipmentItem = null;
         side = GetComponent<Side>().side;
         soldierState = SoldierStateEnum.Init;
     }
