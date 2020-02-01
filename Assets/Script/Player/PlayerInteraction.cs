@@ -78,6 +78,7 @@ namespace CliffLeeCL
         {
             if (CurrentLaunchItem != null) {
                 //Clean up current obj
+                //Test
             }
             CurrentLaunchItem = objectToLaunch;
             OnItemPicked(CurrentLaunchItem);
