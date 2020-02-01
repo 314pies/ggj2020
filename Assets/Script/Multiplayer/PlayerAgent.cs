@@ -7,6 +7,9 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
 {
     public override void Attached()
     {
+        GetComponent<PlayerController2D>().enabled = false;
+        GetComponent<PlayerInteraction>().enabled = false;
+
         state.SetTransforms(state.trans, transform);
         state.SetAnimator(GetComponent<Animator>());
 
@@ -17,12 +20,14 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
 
     public override void ControlGained()
     {
-     
+        GetComponent<PlayerController2D>().enabled = true;
+        GetComponent<PlayerInteraction>().enabled = true;
     }
 
     public override void ControlLost()
     {
-      
+        GetComponent<PlayerController2D>().enabled = false;
+        GetComponent<PlayerInteraction>().enabled = false;
     }
 
     public override void SimulateController()
@@ -56,6 +61,9 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
                 transform.localScale = cmd.Input.Scale;
                 state.localScale = transform.localScale;
             }
+
+            GetComponent<PlayerAnimator>().UpdateAnimator();
+            //Keep in this cicle
             cmd.Result.Position = transform.position;
         }
     }
