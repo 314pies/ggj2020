@@ -23,13 +23,12 @@ namespace CliffLeeCL
             Assert.IsTrue(collision, "Need \"PlayerCollision\" component on this gameObject");
         }
 
-        [Header("General")]
         public KeyCode UseKey = KeyCode.Space;
-        [Header("Pick Item")]
         public float PickingRadius = 1.0f;
-        public LayerMask SearchForItemLayerMask;
+        public LayerMask interactLayerMask;
         public GameObject CurrendHoldingItem;
         public Vector2 HoldingPosition;
+        public GameObject Arrow;
 
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -41,32 +40,40 @@ namespace CliffLeeCL
             {
                 if(CurrentLaunchItem!=null) //Launch item
                 {
-                    LauchItem(ref CurrentLaunchItem);
+                    Arrow.SetActive(true);
+                   // LauchItem(ref CurrentLaunchItem);
                 }else if (CurrendHoldingItem == null)//Pick item
                 {
-                    var itemFound = SearchForItemInRange(PickingRadius);
+                    var itemFound = ItemInRange(PickingRadius);
                     CurrendHoldingItem = itemFound;
-
                     if(CurrendHoldingItem != null)
-                        SetCarryingItem(CurrendHoldingItem,HoldingPosition);
+                     OnItemPicked(CurrendHoldingItem);
                 }
+            }
+            if (Input.GetKeyUp(UseKey))
+            {
+                if (CurrentLaunchItem != null) //Launch item
+                {
+                    LauchItem(ref CurrentLaunchItem);
+                }
+
             }
         }
 
 
-        public GameObject SearchForItemInRange(float radius)
+        public GameObject ItemInRange(float radius)
         {
-            var _collider = Physics2D.OverlapCircle(transform.position, radius, SearchForItemLayerMask);
+            var _collider = Physics2D.OverlapCircle(transform.position, radius, interactLayerMask);
             if (_collider == null)
                 return null;
             else
                 return _collider.gameObject;
         }
 
-        public void SetCarryingItem(GameObject obj,Vector2 carryingPosition)
+        public void OnItemPicked(GameObject obj)
         {
             obj.transform.parent = transform;
-            obj.transform.localPosition = carryingPosition;
+            obj.transform.localPosition = HoldingPosition;
             obj.GetComponent<Rigidbody2D>().isKinematic = true;
         }
 
@@ -76,32 +83,32 @@ namespace CliffLeeCL
             CurrendHoldingItem = null;
         }
 
-        [Header("Launch Item")]
         public GameObject CurrentLaunchItem;
         public void SetLaunchingItem(GameObject objectToLaunch)
         {
             if (CurrentLaunchItem != null) {
                 //Clean up current obj
-                //Test
             }
-
             CurrentLaunchItem = objectToLaunch;
-            SetCarryingItem(CurrentLaunchItem,LaunchReadyPosition);
+            OnItemPicked(CurrentLaunchItem);
         }
 
         public float LaunchForce = 10.0f;
-        public Vector2 LaunchReadyPosition;
+
         public void LauchItem(ref GameObject itemToLaunch)
         {
+            Vector2 dir = new Vector2(Arrow.transform.up.x, Arrow.transform.up.y);
             if (itemToLaunch.GetComponent<Rigidbody2D>())
             {
+
                 itemToLaunch.transform.parent = null;
                 itemToLaunch.GetComponent<Rigidbody2D>().isKinematic = false;
                 itemToLaunch.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(Vector2.up * LaunchForce,ForceMode2D.Impulse);
+                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(dir * LaunchForce,ForceMode2D.Impulse);
                 itemToLaunch = null;
             }
+            Arrow.SetActive(false);
         }
 
         void OnDrawGizmosSelected()
