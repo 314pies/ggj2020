@@ -59,12 +59,27 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         }
     }
 
+    public Dictionary<uint, GameObject> serverPlayersDictionary = new Dictionary<uint, GameObject>();
     public override void Connected(BoltConnection connection)
     {
-        if (BoltNetwork.IsClient)
+        if (BoltNetwork.IsServer)
         {
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player);
-            _player.TakeControl();
+            serverPlayersDictionary.Add(connection.ConnectionId, _player.gameObject);
+            _player.AssignControl(connection);
+        }
+    }
+
+    public override void Disconnected(BoltConnection connection)
+    {
+        if (BoltNetwork.IsServer)
+        {
+            if (serverPlayersDictionary.ContainsKey(connection.ConnectionId))
+            {
+                var _p = serverPlayersDictionary[connection.ConnectionId];
+                serverPlayersDictionary.Remove(connection.ConnectionId);
+                BoltNetwork.Destroy(_p);
+            }
         }
     }
 }

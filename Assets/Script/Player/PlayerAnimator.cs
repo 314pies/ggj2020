@@ -23,12 +23,21 @@ namespace CliffLeeCL
             Assert.IsTrue(rigid, "Need \"Rigidbody\" component on this gameObject");
         }
 
+
+        Vector3 previousPosition;
+        public Vector3 VelocityForAnimation;
+
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
-        void Update()
+        /// 
+        void FixedUpdate()
         {
-            UpdateAnimator();
+            if (GetComponent<BoltEntity>().IsOwner || GetComponent<BoltEntity>().HasControl)
+                UpdateAnimator();
+
+            VelocityForAnimation = ((transform.position - previousPosition)) / Time.fixedDeltaTime;
+            previousPosition = transform.position;
         }
 
         /// <summary>
@@ -36,7 +45,7 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateAnimator()
         {
-            animator.SetFloat("Velocity", Mathf.Abs(rigid.velocity.x));
+          animator.SetFloat("Velocity", Mathf.Abs(VelocityForAnimation.x));
         }
     }
 }
