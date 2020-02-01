@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 namespace CliffLeeCL
 {
@@ -19,12 +20,16 @@ namespace CliffLeeCL
         /// </summary>
         public GameObject[] objectsToClose;
 
+        public TextMeshProUGUI gameOverTitle;
+        public string leftWinText = "Left Wins!";
+        public string rightWinText = "Right Wins!";
+
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
         /// </summary>
         void Start()
         {
-            EventManager.Instance.onGameOver += OnGameOver;
+            //EventManager.Instance.onGameOver += OnGameOver;
         }
 
         /// <summary>
@@ -32,19 +37,20 @@ namespace CliffLeeCL
         /// </summary>
         void OnDisable()
         {
-            EventManager.Instance.onGameOver -= OnGameOver;
+            //EventManager.Instance.onGameOver -= OnGameOver;
         }
 
         /// <summary>
         /// Event listener that listen to EventManager's onGameOver event.
         /// </summary>
         /// <seealso cref="EventManager.onGameOver"/>
-        void OnGameOver()
+        public void OnGameOver(bool isLeftWin)
         {
             Time.timeScale = 0.0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             OpenGameOverUI();
+            SetGameOverTitle(isLeftWin);
         }
 
         /// <summary>
@@ -56,6 +62,18 @@ namespace CliffLeeCL
                 obj.SetActive(true);
             foreach (GameObject obj in objectsToClose)
                 obj.SetActive(false);
+        }
+
+        void SetGameOverTitle(bool isLeftWin)
+        {
+            if (isLeftWin)
+            {
+                gameOverTitle.text = leftWinText;
+            }
+            else
+            {
+                gameOverTitle.text = rightWinText;
+            }
         }
     }
 }
