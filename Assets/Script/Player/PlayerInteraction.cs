@@ -28,6 +28,7 @@ namespace CliffLeeCL
         public LayerMask interactLayerMask;
         public GameObject CurrendHoldingItem;
         public Vector2 HoldingPosition;
+        public GameObject Arrow;
 
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -39,7 +40,8 @@ namespace CliffLeeCL
             {
                 if(CurrentLaunchItem!=null) //Launch item
                 {
-                    LauchItem(ref CurrentLaunchItem);
+                    Arrow.SetActive(true);
+                   // LauchItem(ref CurrentLaunchItem);
                 }else if (CurrendHoldingItem == null)//Pick item
                 {
                     var itemFound = ItemInRange(PickingRadius);
@@ -47,6 +49,14 @@ namespace CliffLeeCL
                     if(CurrendHoldingItem != null)
                      OnItemPicked(CurrendHoldingItem);
                 }
+            }
+            if (Input.GetKeyUp(UseKey))
+            {
+                if (CurrentLaunchItem != null) //Launch item
+                {
+                    LauchItem(ref CurrentLaunchItem);
+                }
+
             }
         }
 
@@ -84,17 +94,21 @@ namespace CliffLeeCL
         }
 
         public float LaunchForce = 10.0f;
+
         public void LauchItem(ref GameObject itemToLaunch)
         {
+            Vector2 dir = new Vector2(Arrow.transform.up.x, Arrow.transform.up.y);
             if (itemToLaunch.GetComponent<Rigidbody2D>())
             {
+
                 itemToLaunch.transform.parent = null;
                 itemToLaunch.GetComponent<Rigidbody2D>().isKinematic = false;
                 itemToLaunch.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(Vector2.up * LaunchForce,ForceMode2D.Impulse);
+                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(dir * LaunchForce,ForceMode2D.Impulse);
                 itemToLaunch = null;
             }
+            Arrow.SetActive(false);
         }
 
         void OnDrawGizmosSelected()

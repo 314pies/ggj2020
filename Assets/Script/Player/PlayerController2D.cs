@@ -213,10 +213,19 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateRotationPlatformer()
         {
+            SpriteRenderer mySpr;
+            mySpr = GetComponent<SpriteRenderer>();
             float inputHorizontal = Input.GetAxis("Horizontal");
 
             if (inputHorizontal != 0.0f)
-                transform.localScale = new Vector3(Mathf.Sign(inputHorizontal) * startLocalScaleX, transform.localScale.y, transform.localScale.z);
+                if (Mathf.Sign(inputHorizontal) < 0){
+                    
+                    mySpr.flipX = true;
+                }
+                else
+                {
+                    mySpr.flipX = false;
+                }
         }
 
         /// <summary>
