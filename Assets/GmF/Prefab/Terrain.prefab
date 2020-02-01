@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6612781741665127804}
   - component: {fileID: 4589715311601808022}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TmpSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8656260752901414123}
   - component: {fileID: 2533294993645461547}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7265743147853924027}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
