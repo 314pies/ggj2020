@@ -53,12 +53,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UseKey: 32
   PickingRadius: 2.16
-  interactLayerMask:
+  SearchForItemLayerMask:
     serializedVersion: 2
     m_Bits: 256
   CurrendHoldingItem: {fileID: 0}
   HoldingPosition: {x: 0, y: 2}
+  CurrentLaunchItem: {fileID: 0}
   LaunchForce: 10
+  LaunchReadyPosition: {x: 0, y: 3}
 --- !u!212 &3095773213570670279
 SpriteRenderer:
   m_ObjectHideFlags: 0
