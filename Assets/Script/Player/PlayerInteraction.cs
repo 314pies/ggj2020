@@ -23,9 +23,11 @@ namespace CliffLeeCL
             Assert.IsTrue(collision, "Need \"PlayerCollision\" component on this gameObject");
         }
 
+        [Header("General")]
         public KeyCode UseKey = KeyCode.Space;
+        [Header("Pick Item")]
         public float PickingRadius = 1.0f;
-        public LayerMask interactLayerMask;
+        public LayerMask SearchForItemLayerMask;
         public GameObject CurrendHoldingItem;
         public Vector2 HoldingPosition;
 
@@ -37,39 +39,58 @@ namespace CliffLeeCL
             // Pick up / drop items
             if (Input.GetKeyDown(UseKey))
             {
-                //Pick item
-                if(CurrendHoldingItem == null)
+                if(CurrentLaunchItem!=null) //Launch item
                 {
-                    var itemFound = ItemInRange(PickingRadius);
+                    LauchItem(ref CurrentLaunchItem);
+                }else if (CurrendHoldingItem == null)//Pick item
+                {
+                    var itemFound = SearchForItemInRange(PickingRadius);
                     CurrendHoldingItem = itemFound;
+
                     if(CurrendHoldingItem != null)
-                     OnItemPicked(CurrendHoldingItem);
-                }
-                else//Launch item
-                {
-                    LauchItem(ref CurrendHoldingItem);
+                        SetCarryingItem(CurrendHoldingItem,HoldingPosition);
                 }
             }
         }
 
 
-        public GameObject ItemInRange(float radius)
+        public GameObject SearchForItemInRange(float radius)
         {
-            var _collider = Physics2D.OverlapCircle(transform.position, radius, interactLayerMask);
+            var _collider = Physics2D.OverlapCircle(transform.position, radius, SearchForItemLayerMask);
             if (_collider == null)
                 return null;
             else
                 return _collider.gameObject;
         }
 
-        public void OnItemPicked(GameObject obj)
+        public void SetCarryingItem(GameObject obj,Vector2 carryingPosition)
         {
             obj.transform.parent = transform;
-            obj.transform.localPosition = HoldingPosition;
+            obj.transform.localPosition = carryingPosition;
             obj.GetComponent<Rigidbody2D>().isKinematic = true;
         }
 
+        public void RemoveHoldingItem()
+        {
+            Destroy(CurrendHoldingItem);
+            CurrendHoldingItem = null;
+        }
+
+        [Header("Launch Item")]
+        public GameObject CurrentLaunchItem;
+        public void SetLaunchingItem(GameObject objectToLaunch)
+        {
+            if (CurrentLaunchItem != null) {
+                //Clean up current obj
+                //Test
+            }
+
+            CurrentLaunchItem = objectToLaunch;
+            SetCarryingItem(CurrentLaunchItem,LaunchReadyPosition);
+        }
+
         public float LaunchForce = 10.0f;
+        public Vector2 LaunchReadyPosition;
         public void LauchItem(ref GameObject itemToLaunch)
         {
             if (itemToLaunch.GetComponent<Rigidbody2D>())
