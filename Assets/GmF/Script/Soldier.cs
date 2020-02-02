@@ -143,7 +143,7 @@ public class Soldier : MonoBehaviour
 
                             if (WeaponItem != null && EquipmentItem != null)
                             {
-                                if (Random.Range(0, 1) == 0)
+                                if (Random.Range(0, 2) == 0)
                                 {
                                     ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
                                     WeaponItem = null;
