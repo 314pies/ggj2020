@@ -160,11 +160,19 @@ public class Soldier : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
+        if (hit == null || hit.gameObject == null)
+        {
+            return;
+        }
         OnHit(hit.gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D hit)
     {
+        if(hit == null || hit.gameObject == null)
+        {
+            return;
+        }
         OnHit(hit.gameObject);
     }
 
