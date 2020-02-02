@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   welcomeScreenVersion: '1.9.0 '
   playmakerVersion: 
-  showWelcomeScreen: 0
+  showWelcomeScreen: 1
   showUpgradeGuide: 0
-  lastAutoUpdateSignature: 2019.3.0f6__D:/unity/GIR/Assets__0.0.0.0
+  lastAutoUpdateSignature: 2019.3.0f6__D:/Unity Projects/Unity5 projects/GGJ20/Assets__0.0.0.0
   useLegacyNetworking: 0
