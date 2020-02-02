@@ -1083,6 +1083,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5386146242219870850, guid: d0f2595522925604cbd2a1d3eff59165,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386146242219870850, guid: d0f2595522925604cbd2a1d3eff59165,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5386146242219870850, guid: d0f2595522925604cbd2a1d3eff59165,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0f2595522925604cbd2a1d3eff59165, type: 3}
 --- !u!1001 &5543262407510711874
