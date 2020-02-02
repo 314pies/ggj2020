@@ -48,3 +48,6 @@ TagManager:
   - name: Soldier
     uniqueID: 2029593335
     locked: 0
+  - name: UI
+    uniqueID: 3468413515
+    locked: 0
