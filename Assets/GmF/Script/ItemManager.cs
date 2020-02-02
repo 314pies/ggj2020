@@ -8,6 +8,9 @@ public class ItemManager : MonoBehaviour
     {
         try
         {
+            print("Dropping Item" + itemSetting);
+            print("Dropping Item resource path" + itemSetting.ResourcePath);
+
             GameObject newItem = Instantiate(Resources.Load(itemSetting.ResourcePath)) as GameObject;
             newItem.transform.position = pos;
             ItemBase newItemBase = newItem.GetComponent<ItemBase>();

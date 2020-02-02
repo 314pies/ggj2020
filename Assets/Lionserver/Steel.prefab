@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1572494114566692354}
   - component: {fileID: 9143576376129167117}
   - component: {fileID: 5725635436555967723}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Steel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -160,6 +160,6 @@ MonoBehaviour:
   itemSetting:
     ItemType: 1
     ItemState: 1
-    addPushSpeed: 0
-    addPushTime: 0
-    ResourcePath: ItemSample
+    addPushSpeed: 2
+    addPushTime: 1
+    ResourcePath: Prefab\ItemSample
