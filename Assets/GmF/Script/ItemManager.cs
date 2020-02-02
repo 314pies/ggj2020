@@ -11,6 +11,7 @@ public class ItemManager : MonoBehaviour
             GameObject newItem = Instantiate(Resources.Load(itemSetting.ResourcePath)) as GameObject;
             newItem.transform.position = pos;
             ItemBase newItemBase = newItem.GetComponent<ItemBase>();
+            newItemBase.itemSetting.Clone(itemSetting);
             newItemBase.itemSetting.ItemState = itemState;
         }
         catch(System.Exception e)
