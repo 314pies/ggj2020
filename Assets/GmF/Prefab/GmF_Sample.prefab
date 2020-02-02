@@ -222,12 +222,17 @@ PrefabInstance:
     - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}
       propertyPath: DropMax
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}
       propertyPath: DropRangMax
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
+        type: 3}
+      propertyPath: side
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2727339769351999170, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}
@@ -409,6 +414,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall R
       objectReference: {fileID: 0}
+    - target: {fileID: 1794497958446171419, guid: b585daf6ae31d6e428f0c35ea71d1231,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844577397244901577, guid: b585daf6ae31d6e428f0c35ea71d1231,
+        type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8295724552444872203, guid: b585daf6ae31d6e428f0c35ea71d1231, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b585daf6ae31d6e428f0c35ea71d1231, type: 3}
@@ -491,10 +506,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall L
       objectReference: {fileID: 0}
+    - target: {fileID: 1794497958446171419, guid: b585daf6ae31d6e428f0c35ea71d1231,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 1846469909626088293, guid: b585daf6ae31d6e428f0c35ea71d1231,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7844577397244901577, guid: b585daf6ae31d6e428f0c35ea71d1231,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8295724552444872203, guid: b585daf6ae31d6e428f0c35ea71d1231, type: 3}
@@ -631,12 +656,17 @@ PrefabInstance:
     - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}
       propertyPath: DropMax
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}
       propertyPath: DropRangMax
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 392708777314805026, guid: 204ec058c129038408e96ad9ef25149f,
+        type: 3}
+      propertyPath: side
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2727339769351999170, guid: 204ec058c129038408e96ad9ef25149f,
         type: 3}

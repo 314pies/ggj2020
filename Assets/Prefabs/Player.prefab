@@ -602,10 +602,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16640
   CurrendHoldingItem: {fileID: 0}
-  HoldingPosition: {x: 0, y: 2}
+  HoldingPosition: {x: 0, y: 3}
   Arrow: {fileID: 1870914340}
   CurrentLaunchItem: {fileID: 0}
-  LaunchForce: 14.88
+  LaunchForce: 20
 --- !u!114 &2995540063885360651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -758,7 +758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115014d99aa28054f8844f9f26d55901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingSpeed: 300
+  movingSpeed: 450
   sprintSpeed: 500
   climbingSpeed: 200
   jumpForce: 30

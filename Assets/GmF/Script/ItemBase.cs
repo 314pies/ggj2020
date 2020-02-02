@@ -7,10 +7,11 @@ public class ItemBase : MonoBehaviour
     public Sprite Weapons;
     public Sprite Equip;
     public ItemSetting itemSetting = new ItemSetting();
+
     void Start()
     {
         SpriteRenderer mySpr;
-        mySpr =transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>();
+        mySpr = transform.Find("Sprite").GetComponent<SpriteRenderer>();
         if (itemSetting.ItemType == ItemTypeEnum.Weapon)
         {
             mySpr.sprite = Weapons;

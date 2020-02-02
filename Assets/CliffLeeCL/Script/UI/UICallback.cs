@@ -15,7 +15,6 @@ namespace CliffLeeCL
         public void StartButtonCallback(int levelIndex)
         {
             SceneManager.LoadScene(levelIndex);
-            AudioManager.Instance.PlaySound(AudioManager.AudioName.ButtonClicked);
         }
 
         /// <summary>
@@ -24,7 +23,6 @@ namespace CliffLeeCL
         public void RestartButtonCallback()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            AudioManager.Instance.PlaySound(AudioManager.AudioName.ButtonClicked);
         }
 
         /// <summary>
@@ -33,7 +31,6 @@ namespace CliffLeeCL
         public void MenuButtonCallback()
         {
             SceneManager.LoadScene(0);
-            AudioManager.Instance.PlaySound(AudioManager.AudioName.ButtonClicked);
         }
 
         /// <summary>
@@ -43,7 +40,6 @@ namespace CliffLeeCL
         {
             Application.Quit();
             Debug.Log("Exit game!");
-            AudioManager.Instance.PlaySound(AudioManager.AudioName.ButtonClicked);
         }
     }
 }
