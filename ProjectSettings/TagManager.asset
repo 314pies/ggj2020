@@ -45,3 +45,6 @@ TagManager:
   - name: Item
     uniqueID: 3978766921
     locked: 0
+  - name: Soldier
+    uniqueID: 2029593335
+    locked: 0

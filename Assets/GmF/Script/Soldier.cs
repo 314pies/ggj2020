@@ -35,6 +35,11 @@ public class Soldier : MonoBehaviour
     /// </summary>
     bool isGrounded = true;
 
+    Animator animator = null;
+    public string HaveWeaponAndEquipmentAnimName = "All";
+    public string JustWeaponAnimName = "swordani";
+    public string JustEquipmentAnimName = "Armorani";
+    public string NoItemAnimName = "Peopleani";
 
     public float GetAtkPushSpeed()
     {
@@ -52,6 +57,32 @@ public class Soldier : MonoBehaviour
     {
         side = GetComponent<Side>().side;
         soldierState = SoldierStateEnum.Init;
+        Transform animatorTransform = transform.Find("Animator/TmpSprite");
+        if(animatorTransform != null)
+        {
+            animator = animatorTransform.gameObject.GetComponent<Animator>();
+        }
+        InitAnim();
+    }
+
+    public void InitAnim()
+    {
+        if(WeaponItem != null && EquipmentItem != null)
+        {
+            animator.Play(HaveWeaponAndEquipmentAnimName);
+        }
+        else if(WeaponItem == null && EquipmentItem == null)
+        {
+            animator.Play(NoItemAnimName);
+        }
+        else if(WeaponItem != null && EquipmentItem == null)
+        {
+            animator.Play(JustWeaponAnimName);
+        }
+        else if (WeaponItem == null && EquipmentItem != null)
+        {
+            animator.Play(JustEquipmentAnimName);
+        }
     }
 
     public void Start()
@@ -116,22 +147,26 @@ public class Soldier : MonoBehaviour
                                 {
                                     ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
                                     WeaponItem = null;
+                                    InitAnim();
                                 }
                                 else
                                 {
                                     ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
                                     EquipmentItem = null;
+                                    InitAnim();
                                 }
                             }
                             else if (WeaponItem != null)
                             {
                                 ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
                                 WeaponItem = null;
+                                InitAnim();
                             }
                             else if (EquipmentItem != null)
                             {
                                 ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
                                 EquipmentItem = null;
+                                InitAnim();
                             }
                         }
                     }
@@ -145,12 +180,14 @@ public class Soldier : MonoBehaviour
                             WeaponItem = new ItemSetting();
                             WeaponItem.Clone(other_item.itemSetting);
                             Destroy(other_item.gameObject);
+                            InitAnim();
                         }
                         if (EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Equipment)
                         {
                             EquipmentItem = new ItemSetting();
                             EquipmentItem.Clone(other_item.itemSetting);
                             Destroy(other_item.gameObject);
+                            InitAnim();
                         }
                     }
                     break;
