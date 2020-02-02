@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 115014d99aa28054f8844f9f26d55901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movingSpeed: 300
+  movingSpeed: 450
   sprintSpeed: 500
   climbingSpeed: 200
   jumpForce: 30
