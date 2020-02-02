@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
+    public Vector3 PlayerSpawnPoint;
 	void OnGUI()
 	{
         if (BoltNetwork.IsRunning) { return; }
@@ -37,9 +38,9 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 				sessionID: matchName
 			);
 
-            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player);
+            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player,PlayerSpawnPoint,Quaternion.identity);
             _player.TakeControl();
-
+            SpawnSoldiers();
         }
 	}
 
@@ -64,7 +65,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     {
         if (BoltNetwork.IsServer)
         {
-            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player);
+            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             serverPlayersDictionary.Add(connection.ConnectionId, _player.gameObject);
             _player.AssignControl(connection);
         }
@@ -80,6 +81,26 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
                 serverPlayersDictionary.Remove(connection.ConnectionId);
                 BoltNetwork.Destroy(_p);
             }
+        }
+    }
+
+
+    public int SoldierCount = 3;
+    public Vector3 LeftSolderSpawnPoint, RightSoldierSolderSpawnPoint;
+    public float SpawnRange = 1.5f;
+    void SpawnSoldiers()
+    {
+        for(int i = 0; i < SoldierCount; i++)
+        {
+            Vector3 RndPos = LeftSolderSpawnPoint;
+            RndPos.x = RndPos.x  + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierL, RndPos, Quaternion.identity);
+
+            RndPos = RightSoldierSolderSpawnPoint;
+            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierR, RndPos, Quaternion.identity);
+
         }
     }
 }
