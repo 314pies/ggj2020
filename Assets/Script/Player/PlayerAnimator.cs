@@ -24,19 +24,11 @@ namespace CliffLeeCL
         }
 
         /// <summary>
-        /// Update is called every frame, if the MonoBehaviour is enabled.
-        /// </summary>
-        void Update()
-        {
-            UpdateAnimator();
-        }
-
-        /// <summary>
         /// Update player's animator with some parameters.
         /// </summary>
-        private void UpdateAnimator()
+        public void UpdateAnimator()
         {
-            animator.SetFloat("Velocity", Mathf.Abs(rigid.velocity.x));
+          animator.SetFloat("Velocity", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
         }
     }
 }
