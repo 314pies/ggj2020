@@ -7,7 +7,7 @@ using UnityEngine;
 using CliffLeeCL;
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
-    public GameObject UI;
+    public GameObject UI,LL,RR;
     public Vector3 PlayerSpawnPoint;
 	//void OnGUI()
 	//{
@@ -55,7 +55,10 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             SpawnSoldiers();
         }
         UI.SetActive(false);
-	}
+        LL.SetActive(true);
+        RR.SetActive(true);
+
+    }
 
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)

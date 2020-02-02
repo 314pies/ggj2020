@@ -249,10 +249,10 @@ MonoBehaviour:
     addPushSpeed: 4
     addPushTime: 2
     ResourcePath: Prefab/ItemSample
-  DropMin: 0
   DropMax: 2
-  DropRangMin: 0
   DropRangMax: 1
+  DropSound: {fileID: 0}
+  Get: {fileID: 0}
   checkerPositionOffset: {x: -0.91, y: -2.04, z: -0.61}
   checkerRadius: 1
   checkLayer:

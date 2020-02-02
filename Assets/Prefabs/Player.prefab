@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b15af0188c3d25b45b3f94753b83c66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impact: {fileID: 0}
   UseKey: 122
   PickingRadius: 2.16
   interactLayerMask:
@@ -850,3 +851,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c210e8ce88cf6412983254574b8fece8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsLocal: 0
