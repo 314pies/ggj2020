@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI: {fileID: 9132420467198466569}
-  PlayerSpawnPoint: {x: 0, y: 0, z: 0}
+  PlayerSpawnPoint: {x: 0, y: -4, z: 0}
   SoldierCount: 3
-  LeftSolderSpawnPoint: {x: 0, y: 0, z: 0}
-  RightSoldierSolderSpawnPoint: {x: 0, y: 0, z: 0}
-  SpawnRange: 1.5
+  LeftSolderSpawnPoint: {x: -13, y: 4, z: 0}
+  RightSoldierSolderSpawnPoint: {x: 13, y: 4, z: 0}
+  SpawnRange: 3
 --- !u!1 &2182770014481625145
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,9 +329,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8092634371055991956}
-        m_MethodName: StartButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1635116928756574239}
+        m_MethodName: StartClient
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -463,9 +463,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8092634371055991956}
-        m_MethodName: StartButtonCallback
-        m_Mode: 3
+      - m_Target: {fileID: 1635116928756574239}
+        m_MethodName: StartServer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
