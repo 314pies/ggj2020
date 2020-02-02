@@ -624,6 +624,8 @@ MonoBehaviour:
   checkLayer:
     serializedVersion: 2
     m_Bits: 0
+  LeftKey: 97
+  RightKey: 100
 --- !u!212 &3095773213570670279
 SpriteRenderer:
   m_ObjectHideFlags: 0
