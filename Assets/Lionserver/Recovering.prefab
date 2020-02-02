@@ -5192,10 +5192,10 @@ MonoBehaviour:
         intValues: 
         boolValues: 
         stringValues:
-        - C
         - X
         - Z
-        - C
+        - Z
+        - X
         vector4Values: []
         objectReferences: []
       - useVariable: 1
@@ -5209,10 +5209,10 @@ MonoBehaviour:
         intValues: 
         boolValues: 
         stringValues:
-        - Z
+        - C
         - X
-        - X
         - Z
+        - C
         vector4Values: []
         objectReferences: []
       - useVariable: 1
