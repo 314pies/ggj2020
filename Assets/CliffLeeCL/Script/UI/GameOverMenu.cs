@@ -29,6 +29,9 @@ namespace CliffLeeCL
         /// </summary>
         void Start()
         {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = false;
+            Time.timeScale = 1.0f;
             //EventManager.Instance.onGameOver += OnGameOver;
         }
 
