@@ -53,7 +53,7 @@ MonoBehaviour:
   Equip: {fileID: 21300000, guid: 24e534c727f807544a60cc6ca215b228, type: 3}
   itemSetting:
     ItemType: 1
-    ItemState: 1
+    ItemState: 2
     addPushSpeed: 2
     addPushTime: 1
     ResourcePath: Prefab\ItemSample

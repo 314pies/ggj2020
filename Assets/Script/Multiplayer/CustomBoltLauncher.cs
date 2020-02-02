@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Bolt.Matchmaking;
 using UdpKit;
 using UnityEngine;
-
+using CliffLeeCL;
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
     public Vector3 PlayerSpawnPoint;
@@ -102,5 +102,18 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             BoltNetwork.Instantiate(BoltPrefabs.SoldierR, RndPos, Quaternion.identity);
 
         }
+    }
+
+
+
+    //Equip Item
+    public override void OnEvent(PlayerPickDropItemReq evnt)
+    {
+        Debug.Log("Recieve PlayerPickDropItemReq " + evnt.Player);
+        evnt.Player.GetComponent<PlayerInteraction>().ServerSetHoldingItem(evnt.DroppingItem);
+    }
+    private void aa()
+    {
+        //ServerSetHoldingItem();
     }
 }

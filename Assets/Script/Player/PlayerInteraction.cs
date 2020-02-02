@@ -30,6 +30,23 @@ namespace CliffLeeCL
         public Vector2 HoldingPosition;
         public GameObject Arrow;
 
+
+        void ClientSendHoldItemReq(BoltEntity item)
+        {
+            var pickReq = PlayerPickDropItemReq.Create(Bolt.GlobalTargets.OnlyServer);
+            pickReq.Player = GetComponent<BoltEntity>();
+            pickReq.DroppingItem = item;
+
+            pickReq.Send();
+        }
+
+        public void ServerSetHoldingItem(GameObject itemFound)
+        {
+            CurrendHoldingItem = itemFound;
+            OnItemPicked(CurrendHoldingItem);
+        }
+
+
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
@@ -55,8 +72,8 @@ namespace CliffLeeCL
                             {
                                 if(CurrendHoldingItem == null)
                                 {
-                                    CurrendHoldingItem = itemFound;
-                                    OnItemPicked(CurrendHoldingItem);
+                                    Debug.Log("Sending Req");
+                                    ClientSendHoldItemReq(itemFound.GetComponent<BoltEntity>());
                                 }
                                
                             }

@@ -5,8 +5,10 @@ using Bolt;
 using CliffLeeCL;
 public class PlayerAgent : EntityBehaviour<IPlayerState>
 {
+    PlayerInteraction playerInteraction;
     public override void Attached()
     {
+        playerInteraction = GetComponent<PlayerInteraction>();
         GetComponent<PlayerController2D>().enabled = false;
         GetComponent<PlayerInteraction>().enabled = false;
 
@@ -15,6 +17,21 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
 
         state.AddCallback("localScale", ()=> {
             transform.localScale = state.localScale;
+        });
+
+        state.AddCallback("HoldingItem", () =>
+        {
+            playerInteraction.CurrendHoldingItem = state.HoldingItem;
+        });
+
+        state.AddCallback("HoldingItem", () =>
+        {
+            playerInteraction.CurrendHoldingItem = state.HoldingItem;
+        });
+
+        state.AddCallback("LaunchItem", () =>
+        {
+            playerInteraction.CurrentLaunchItem = state.LaunchItem;
         });
     }
 
