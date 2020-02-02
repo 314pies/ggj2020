@@ -182,12 +182,28 @@ namespace CliffLeeCL
             isDrained = false;
         }
 
+
+        public KeyCode LeftKey, RightKey;
+        float CustomGetAxis()
+        {
+            if (Input.GetKey(LeftKey))
+            {
+                return -1;
+            }
+            else if (Input.GetKey(RightKey))
+            {
+                return 1;
+            }
+            else
+                return 0;
+        }
+
         /// <summary>
         /// Update player's movement via assigning new velocity for platformer.
         /// </summary>
         private void UpdateMovementPlatformer()
         {
-            float inputHorizontal = Input.GetAxis("Horizontal");
+            float inputHorizontal = CustomGetAxis();
             Vector2 direction = new Vector2(inputHorizontal, 0.0f).normalized;
             Vector2 moveVelocity = (direction * status.movingSpeed * Time.fixedDeltaTime);
             Vector2 sprintVelocity = (direction * status.sprintSpeed * Time.fixedDeltaTime);
@@ -215,7 +231,7 @@ namespace CliffLeeCL
         {
             SpriteRenderer mySpr;
             mySpr = GetComponent<SpriteRenderer>();
-            float inputHorizontal = Input.GetAxis("Horizontal");
+            float inputHorizontal = CustomGetAxis();
 
             if (inputHorizontal != 0.0f)
                 if (Mathf.Sign(inputHorizontal) < 0){
@@ -233,7 +249,7 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateMovementTopDown()
         {
-            float inputHorizontal = Input.GetAxis("Horizontal");
+            float inputHorizontal = CustomGetAxis();
             float inputVertical = Input.GetAxis("Vertical");
             Vector2 direction = new Vector2(inputHorizontal, inputVertical).normalized;
             Vector2 moveVelocity = (direction * status.movingSpeed * Time.fixedDeltaTime);
@@ -260,7 +276,7 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateRotationTopDown()
         {
-            float inputHorizontal = Input.GetAxis("Horizontal");
+            float inputHorizontal = CustomGetAxis();
             float inputVertical = Input.GetAxis("Vertical");
             Vector2 direction = new Vector2(inputHorizontal, inputVertical).normalized;
 
