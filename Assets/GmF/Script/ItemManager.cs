@@ -11,7 +11,8 @@ public class ItemManager : MonoBehaviour
             print("Dropping Item" + itemSetting);
             print("Dropping Item resource path" + itemSetting.ResourcePath);
 
-            GameObject newItem = Instantiate(Resources.Load(itemSetting.ResourcePath)) as GameObject;
+            //GameObject newItem = Instantiate(Resources.Load(itemSetting.ResourcePath)) as GameObject;
+            GameObject newItem = BoltNetwork.Instantiate(BoltPrefabs.ItemSample, pos,Quaternion.identity);
             newItem.transform.position = pos;
             ItemBase newItemBase = newItem.GetComponent<ItemBase>();
             newItemBase.itemSetting.Clone(itemSetting);
