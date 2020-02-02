@@ -17,6 +17,9 @@ public class Soldier : MonoBehaviour
     public ItemSetting WeaponItem = null;
     public ItemSetting EquipmentItem = null;
 
+    public int DropMax = 2;
+    public int DropRangMax = 1;
+
     /// <summary>
     /// Define where the checker should be relatively to player.
     /// </summary>
@@ -141,33 +144,7 @@ public class Soldier : MonoBehaviour
                             hitBackSpeed = other_Soldier.GetAtkPushSpeed();
                             hitBackTime = other_Soldier.GetAtkPushTime();
 
-                            if (WeaponItem != null && EquipmentItem != null)
-                            {
-                                if (Random.Range(0, 2) == 0)
-                                {
-                                    ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
-                                    WeaponItem = null;
-                                    InitAnim();
-                                }
-                                else
-                                {
-                                    ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
-                                    EquipmentItem = null;
-                                    InitAnim();
-                                }
-                            }
-                            else if (WeaponItem != null)
-                            {
-                                ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
-                                WeaponItem = null;
-                                InitAnim();
-                            }
-                            else if (EquipmentItem != null)
-                            {
-                                ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
-                                EquipmentItem = null;
-                                InitAnim();
-                            }
+                            Drop();
                         }
                     }
                     break;
@@ -192,6 +169,44 @@ public class Soldier : MonoBehaviour
                     }
                     break;
             }
+        }
+    }
+
+    private void Drop()
+    {
+        int rndInt = Random.Range(0, DropMax);
+        bool drop = rndInt <= DropRangMax;
+        if (!drop)
+        {
+            return;
+        }
+
+        if (WeaponItem != null && EquipmentItem != null)
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
+                WeaponItem = null;
+                InitAnim();
+            }
+            else
+            {
+                ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
+                EquipmentItem = null;
+                InitAnim();
+            }
+        }
+        else if (WeaponItem != null)
+        {
+            ItemManager.CreateItem(WeaponItem, transform.position, ItemStateEnum.Garbage);
+            WeaponItem = null;
+            InitAnim();
+        }
+        else if (EquipmentItem != null)
+        {
+            ItemManager.CreateItem(EquipmentItem, transform.position, ItemStateEnum.Garbage);
+            EquipmentItem = null;
+            InitAnim();
         }
     }
 
