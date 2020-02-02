@@ -98,7 +98,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 0.5
   m_AngularDrag: 0.05
   m_GravityScale: 0.49
   m_Material: {fileID: 0}
@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.8, y: 0.8}
   m_EdgeRadius: 0
 --- !u!114 &9143576376129167117
 MonoBehaviour:
@@ -157,6 +157,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f40e88affeb384f90cef38599d9770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Weapons: {fileID: 0}
+  Equip: {fileID: 0}
   itemSetting:
     ItemType: 1
     ItemState: 1

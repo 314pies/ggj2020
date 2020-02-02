@@ -234,20 +234,20 @@ MonoBehaviour:
   side: 1
   moveSpeed: 5
   hitBackTime: 1
-  PushBaseSpeed: 2
+  PushBaseSpeed: 4
   PushBaseTime: 1
   knockbackForce: {x: 2, y: 1.25}
   WeaponItem:
     ItemType: 2
     ItemState: 1
-    addPushSpeed: 4
-    addPushTime: 2
+    addPushSpeed: 3
+    addPushTime: 0
     ResourcePath: Prefab/ItemSample
   EquipmentItem:
     ItemType: 1
     ItemState: 1
-    addPushSpeed: 4
-    addPushTime: 2
+    addPushSpeed: 3
+    addPushTime: 0
     ResourcePath: Prefab/ItemSample
   DropMax: 2
   DropRangMax: 1

@@ -600,10 +600,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16640
   CurrendHoldingItem: {fileID: 0}
-  HoldingPosition: {x: 0, y: 2}
+  HoldingPosition: {x: 0, y: 3}
   Arrow: {fileID: 1870914340}
   CurrentLaunchItem: {fileID: 0}
-  LaunchForce: 14.88
+  LaunchForce: 20
 --- !u!114 &2995540063885360651
 MonoBehaviour:
   m_ObjectHideFlags: 0
