@@ -38,16 +38,38 @@ namespace CliffLeeCL
             // Pick up / drop items
             if (Input.GetKeyDown(UseKey))
             {
-                if(CurrentLaunchItem!=null) //Launch item
+                if (CurrentLaunchItem != null) //Launch item
                 {
                     Arrow.SetActive(true);
-                   // LauchItem(ref CurrentLaunchItem);
-                }else if (CurrendHoldingItem == null)//Pick item
-                {
+                    // LauchItem(ref CurrentLaunchItem);
+                }
+                else { 
+                   
                     var itemFound = ItemInRange(PickingRadius);
-                    CurrendHoldingItem = itemFound;
-                    if(CurrendHoldingItem != null)
-                     OnItemPicked(CurrendHoldingItem);
+                    if(itemFound != null)
+                    {
+                        if (itemFound.GetComponent<ItemBase>() != null)
+                        {
+                            ItemStateEnum itemState = itemFound.GetComponent<ItemBase>().itemSetting.ItemState;
+                            if(itemState == ItemStateEnum.Garbage)
+                            {
+                                if(CurrendHoldingItem == null)
+                                {
+                                    CurrendHoldingItem = itemFound;
+                                    OnItemPicked(CurrendHoldingItem);
+                                }
+                               
+                            }
+                            else if (itemState == ItemStateEnum.New)
+                            {
+                                if (CurrentLaunchItem == null)
+                                {
+                                    SetLaunchingItem(itemFound);
+                                    Arrow.SetActive(true);
+                                }
+                            }
+                        }
+                    }
                 }
             }
             if (Input.GetKeyUp(UseKey))

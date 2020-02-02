@@ -574,7 +574,7 @@ Transform:
   m_GameObject: {fileID: 2883645402280380837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.036527, y: -15.037315, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1870914341}
   m_Father: {fileID: 0}
@@ -596,7 +596,7 @@ MonoBehaviour:
   PickingRadius: 2.16
   interactLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 16640
   CurrendHoldingItem: {fileID: 0}
   HoldingPosition: {x: 0, y: 2}
   Arrow: {fileID: 1870914340}
