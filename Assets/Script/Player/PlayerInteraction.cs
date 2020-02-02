@@ -13,6 +13,8 @@ namespace CliffLeeCL
         /// Is used to retrieve current collision situation.
         /// </summary>
         PlayerCollision collision;
+        public AudioClip impact;
+        AudioSource audioSource;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
@@ -20,6 +22,7 @@ namespace CliffLeeCL
         void Start()
         {
             collision = GetComponent<PlayerCollision>();
+            audioSource = GetComponent<AudioSource>();
             Assert.IsTrue(collision, "Need \"PlayerCollision\" component on this gameObject");
         }
 
@@ -94,6 +97,8 @@ namespace CliffLeeCL
                 if (CurrentLaunchItem != null) //Launch item
                 {
                     LauchItem(ref CurrentLaunchItem);
+                    audioSource.PlayOneShot(impact, 0.7F);
+
                 }
 
             }

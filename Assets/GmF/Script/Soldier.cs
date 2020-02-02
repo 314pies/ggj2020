@@ -19,6 +19,9 @@ public class Soldier : MonoBehaviour
 
     public int DropMax = 2;
     public int DropRangMax = 1;
+    public AudioClip DropSound;
+    public AudioClip Get;
+    AudioSource audioSource;
 
     /// <summary>
     /// Define where the checker should be relatively to player.
@@ -60,6 +63,7 @@ public class Soldier : MonoBehaviour
     {
         side = GetComponent<Side>().side;
         soldierState = SoldierStateEnum.Init;
+        audioSource = GetComponent<AudioSource>();
         Transform animatorTransform = transform.Find("Animator/TmpSprite");
         if(animatorTransform != null)
         {
@@ -123,9 +127,11 @@ public class Soldier : MonoBehaviour
     {
         if (hit.CompareTag("Soldier"))
         {
+            
             Rigidbody2D rigid = hit.GetComponent<Rigidbody2D>();
             if (rigid)
                 Knockback(rigid);
+                
         }
 
         Unit unit = hit.GetComponent<Unit>();
@@ -134,6 +140,7 @@ public class Soldier : MonoBehaviour
             switch (unit.UnitType)
             {
                 case UnitTypeEnum.Soldier:
+                    audioSource.PlayOneShot(DropSound, 0.5f);
                     Soldier other_Soldier = hit.GetComponent<Soldier>();
                     if (other_Soldier != null)
                     {
@@ -149,11 +156,13 @@ public class Soldier : MonoBehaviour
                     }
                     break;
                 case UnitTypeEnum.Item:
+                    
                     ItemBase other_item = hit.GetComponent<ItemBase>();
                     if (other_item != null && other_item.itemSetting.ItemState == ItemStateEnum.New)
                     {
                         if (WeaponItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Weapon)
                         {
+                            audioSource.PlayOneShot(Get, 0.5f);
                             WeaponItem = new ItemSetting();
                             WeaponItem.Clone(other_item.itemSetting);
                             Destroy(other_item.gameObject);
@@ -161,6 +170,7 @@ public class Soldier : MonoBehaviour
                         }
                         if (EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Equipment)
                         {
+                            audioSource.PlayOneShot(Get, 0.5f);
                             EquipmentItem = new ItemSetting();
                             EquipmentItem.Clone(other_item.itemSetting);
                             Destroy(other_item.gameObject);
