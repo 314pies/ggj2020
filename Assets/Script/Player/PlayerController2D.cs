@@ -182,30 +182,12 @@ namespace CliffLeeCL
             isDrained = false;
         }
 
-        float CustomGetAxis()
-        {
-            //float inputHorizontal = Input.GetAxis("Horizontal");
-            float inputHorizontal = 0;
-            if (Input.GetKey(LeftKey))
-            {
-                inputHorizontal = -1;
-            }
-            else if (Input.GetKey(RightKey))
-            {
-                inputHorizontal = 1;
-            }
-            return inputHorizontal;
-        }
-
-        public KeyCode LeftKey = KeyCode.A, RightKey = KeyCode.D;
         /// <summary>
         /// Update player's movement via assigning new velocity for platformer.
         /// </summary>
         private void UpdateMovementPlatformer()
         {
-            float inputHorizontal = CustomGetAxis();
-
-
+            float inputHorizontal = Input.GetAxis("Horizontal");
             Vector2 direction = new Vector2(inputHorizontal, 0.0f).normalized;
             Vector2 moveVelocity = (direction * status.movingSpeed * Time.fixedDeltaTime);
             Vector2 sprintVelocity = (direction * status.sprintSpeed * Time.fixedDeltaTime);
@@ -231,10 +213,19 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateRotationPlatformer()
         {
-            float inputHorizontal = CustomGetAxis();
+            SpriteRenderer mySpr;
+            mySpr = GetComponent<SpriteRenderer>();
+            float inputHorizontal = Input.GetAxis("Horizontal");
 
             if (inputHorizontal != 0.0f)
-                transform.localScale = new Vector3(Mathf.Sign(inputHorizontal) * startLocalScaleX, transform.localScale.y, transform.localScale.z);
+                if (Mathf.Sign(inputHorizontal) < 0){
+                    
+                    mySpr.flipX = true;
+                }
+                else
+                {
+                    mySpr.flipX = false;
+                }
         }
 
         /// <summary>
@@ -242,7 +233,7 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateMovementTopDown()
         {
-            float inputHorizontal = CustomGetAxis();
+            float inputHorizontal = Input.GetAxis("Horizontal");
             float inputVertical = Input.GetAxis("Vertical");
             Vector2 direction = new Vector2(inputHorizontal, inputVertical).normalized;
             Vector2 moveVelocity = (direction * status.movingSpeed * Time.fixedDeltaTime);
@@ -269,7 +260,7 @@ namespace CliffLeeCL
         /// </summary>
         private void UpdateRotationTopDown()
         {
-            float inputHorizontal = CustomGetAxis();
+            float inputHorizontal = Input.GetAxis("Horizontal");
             float inputVertical = Input.GetAxis("Vertical");
             Vector2 direction = new Vector2(inputHorizontal, inputVertical).normalized;
 
