@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Bolt;
 
-public class SoldierAgent : EntityBehaviour<IPlayerState>
+public class SoldierAgent : EntityBehaviour<ISoldier>
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Attached()
     {
-        
-    }
+        if (!entity.IsOwner)
+        {
+            GetComponent<Soldier>().enabled = false;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        state.SetTransforms(state.trans, transform);
+
+        Transform animatorTransform = transform.Find("Animator/TmpSprite");
+        if (animatorTransform != null)
+        {
+            var animator = animatorTransform.gameObject.GetComponent<Animator>();
+            state.SetAnimator(animator);
+        }
     }
 }

@@ -300,27 +300,27 @@ PrefabInstance:
     - target: {fileID: 1635116928756574239, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: LeftSolderSpawnPoint.x
-      value: -17
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 1635116928756574239, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: RightSoldierSolderSpawnPoint.x
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 1635116928756574239, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: LeftSolderSpawnPoint.y
-      value: 2.6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1635116928756574239, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: RightSoldierSolderSpawnPoint.y
-      value: 2.6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1635116928756574239, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: SpawnRange
-      value: 1.5
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bbab64f27d094796a239b60eebab4d7, type: 3}
