@@ -282,8 +282,8 @@ MonoBehaviour:
       colorIndex: 0
       position:
         serializedVersion: 2
-        x: 753.6797
-        y: 141.39844
+        x: 728.6797
+        y: 150.39844
         width: 100
         height: 32
       isBreakpoint: 0
@@ -2238,6 +2238,8 @@ MonoBehaviour:
         - HutongGames.PlayMaker.Actions.CreateObject
         - HutongGames.PlayMaker.Actions.GetComponent
         - HutongGames.PlayMaker.Actions.SetProperty
+        - HutongGames.PlayMaker.Actions.SetProperty
+        - HutongGames.PlayMaker.Actions.SetProperty
         - HutongGames.PlayMaker.Actions.ActivateGameObject
         - HutongGames.PlayMaker.Actions.CallMethod
         - HutongGames.PlayMaker.Actions.CallMethod
@@ -2250,10 +2252,12 @@ MonoBehaviour:
         - 
         - 
         - 
-        actionEnabled: 01010101010101
-        actionIsOpen: 01010100010101
-        actionStartIndex: 0000000005000000080000000a0000000f000000160000001d000000
-        actionHashCodes: bf83c90004d814025ac85204b2cf1000ca51e900ca51e9004166d801
+        - 
+        - 
+        actionEnabled: 010101010101010101
+        actionIsOpen: 010101010100010101
+        actionStartIndex: 0000000005000000080000000a0000000c0000000e000000130000001a00000021000000
+        actionHashCodes: bf83c90004d814025ac852045ac852045ac85204b2cf1000ca51e900ca51e9004166d801
         unityObjectParams: []
         fsmGameObjectParams:
         - useVariable: 0
@@ -2413,6 +2417,270 @@ MonoBehaviour:
             showInInspector: 0
             networkSync: 0
             enumName: ItemTypeEnum
+            intValue: 0
+          ArrayParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            type: -1
+            objectTypeName: UnityEngine.Object
+            floatValues: []
+            intValues: 
+            boolValues: 
+            stringValues: []
+            vector4Values: []
+            objectReferences: []
+          setProperty: 1
+        - TargetObject:
+            useVariable: 1
+            name: ItemBaseScript
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: ItemBase
+            value: {fileID: 0}
+          TargetTypeName: ItemBase
+          PropertyName: itemSetting.addPushSpeed
+          BoolParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          FloatParameter:
+            useVariable: 1
+            name: PushSpeed
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          IntParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          GameObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {fileID: 0}
+          StringParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 
+          Vector2Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0}
+          Vector3Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0}
+          RectParamater:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+          QuaternionParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0, w: 0}
+          ObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: System.Single
+            value: {fileID: 0}
+          MaterialParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          TextureParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          ColorParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {r: 0, g: 0, b: 0, a: 1}
+          EnumParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            enumName: 
+            intValue: 0
+          ArrayParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            type: -1
+            objectTypeName: 
+            floatValues: []
+            intValues: 
+            boolValues: 
+            stringValues: []
+            vector4Values: []
+            objectReferences: []
+          setProperty: 1
+        - TargetObject:
+            useVariable: 1
+            name: ItemBaseScript
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: ItemBase
+            value: {fileID: 0}
+          TargetTypeName: ItemBase
+          PropertyName: itemSetting.addPushTime
+          BoolParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          FloatParameter:
+            useVariable: 1
+            name: PushTime
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          IntParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          GameObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {fileID: 0}
+          StringParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 
+          Vector2Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0}
+          Vector3Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0}
+          RectParamater:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+          QuaternionParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0, w: 0}
+          ObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: System.Single
+            value: {fileID: 0}
+          MaterialParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          TextureParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          ColorParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {r: 0, g: 0, b: 0, a: 1}
+          EnumParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            enumName: 
             intValue: 0
           ArrayParameter:
             useVariable: 0
@@ -2620,7 +2888,7 @@ MonoBehaviour:
         stringParams:
         - ARMOR
         - WEAPON
-        byteData: 000000000000000000
+        byteData: 0000000000000000000000
         arrayParamSizes: 01000000010000000200000002000000
         arrayParamTypes:
         - HutongGames.PlayMaker.FsmVar
@@ -2629,7 +2897,7 @@ MonoBehaviour:
         - HutongGames.PlayMaker.FsmEvent
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 13000000130000001c0000001c000000130000001400000018000000010000002400000001000000140000001100000011000000010000000100000018000000120000000c0000002700000027000000010000000100000018000000120000000c000000270000002700000001000000010000002a0000000c0000002a0000002a0000000c000000170000001700000001000000
+        paramDataType: 13000000130000001c0000001c00000013000000140000001800000001000000240000000100000024000000010000002400000001000000140000001100000011000000010000000100000018000000120000000c0000002700000027000000010000000100000018000000120000000c000000270000002700000001000000010000002a0000000c0000002a0000002a0000000c000000170000001700000001000000
         paramName:
         - gameObject
         - spawnPoint
@@ -2638,6 +2906,10 @@ MonoBehaviour:
         - storeObject
         - gameObject
         - storeComponent
+        - everyFrame
+        - targetProperty
+        - everyFrame
+        - targetProperty
         - everyFrame
         - targetProperty
         - everyFrame
@@ -2668,8 +2940,8 @@ MonoBehaviour:
         - 
         - 
         - everyFrame
-        paramDataPos: 00000000010000000000000001000000020000000000000000000000000000000000000001000000010000000000000001000000020000000300000001000000000000000000000000000000010000000400000005000000020000000100000001000000020000000300000006000000070000000000000002000000010000000200000003000000000000000100000008000000
-        paramByteDataSize: 00000000000000000000000000000000000000000000000000000000010000000000000001000000000000000000000000000000010000000100000000000000000000000000000000000000000000000100000001000000000000000000000000000000000000000000000001000000010000000000000000000000000000000000000000000000000000000000000001000000
+        paramDataPos: 000000000100000000000000010000000200000000000000000000000000000000000000010000000100000002000000020000000300000001000000000000000100000004000000050000000100000000000000000000000000000001000000060000000700000002000000010000000100000002000000030000000800000009000000000000000200000001000000020000000300000000000000010000000a000000
+        paramByteDataSize: 0000000000000000000000000000000000000000000000000000000001000000000000000100000000000000010000000000000001000000000000000000000000000000010000000100000000000000000000000000000000000000000000000100000001000000000000000000000000000000000000000000000001000000010000000000000000000000000000000000000000000000000000000000000001000000
     - name: State 11
       description: 
       colorIndex: 0
@@ -3145,15 +3417,19 @@ MonoBehaviour:
         actionNames:
         - HutongGames.PlayMaker.Actions.GetComponent
         - HutongGames.PlayMaker.Actions.GetProperty
+        - HutongGames.PlayMaker.Actions.GetProperty
+        - HutongGames.PlayMaker.Actions.GetProperty
         - HutongGames.PlayMaker.Actions.EnumSwitch
         customNames:
         - 
         - 
         - 
-        actionEnabled: 010101
-        actionIsOpen: 010101
-        actionStartIndex: 000000000300000005000000
-        actionHashCodes: 04d814025ac852044166d801
+        - 
+        - 
+        actionEnabled: 0101010101
+        actionIsOpen: 0101010101
+        actionStartIndex: 0000000003000000050000000700000009000000
+        actionHashCodes: 04d814025ac852045ac852045ac852044166d801
         unityObjectParams: []
         fsmGameObjectParams: []
         fsmOwnerDefaultParams:
@@ -3302,6 +3578,270 @@ MonoBehaviour:
             vector4Values: []
             objectReferences: []
           setProperty: 0
+        - TargetObject:
+            useVariable: 1
+            name: EquipTypescript
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: ItemBase
+            value: {fileID: 0}
+          TargetTypeName: ItemBase
+          PropertyName: itemSetting.addPushSpeed
+          BoolParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          FloatParameter:
+            useVariable: 1
+            name: PushSpeed
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          IntParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          GameObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {fileID: 0}
+          StringParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 
+          Vector2Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0}
+          Vector3Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0}
+          RectParamater:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+          QuaternionParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0, w: 0}
+          ObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: System.Single
+            value: {fileID: 0}
+          MaterialParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          TextureParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          ColorParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {r: 0, g: 0, b: 0, a: 1}
+          EnumParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            enumName: HutongGames.PlayMaker.None
+            intValue: 0
+          ArrayParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            type: -1
+            objectTypeName: UnityEngine.Object
+            floatValues: []
+            intValues: 
+            boolValues: 
+            stringValues: []
+            vector4Values: []
+            objectReferences: []
+          setProperty: 0
+        - TargetObject:
+            useVariable: 1
+            name: EquipTypescript
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: ItemBase
+            value: {fileID: 0}
+          TargetTypeName: ItemBase
+          PropertyName: itemSetting.addPushTime
+          BoolParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          FloatParameter:
+            useVariable: 1
+            name: PushTime
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          IntParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 0
+          GameObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {fileID: 0}
+          StringParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: 
+          Vector2Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0}
+          Vector3Parameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0}
+          RectParamater:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value:
+              serializedVersion: 2
+              x: 0
+              y: 0
+              width: 0
+              height: 0
+          QuaternionParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {x: 0, y: 0, z: 0, w: 0}
+          ObjectParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: System.Single
+            value: {fileID: 0}
+          MaterialParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          TextureParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            typeName: 
+            value: {fileID: 0}
+          ColorParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            value: {r: 0, g: 0, b: 0, a: 1}
+          EnumParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            enumName: 
+            intValue: 0
+          ArrayParameter:
+            useVariable: 0
+            name: 
+            tooltip: 
+            showInInspector: 0
+            networkSync: 0
+            type: -1
+            objectTypeName: 
+            floatValues: []
+            intValues: 
+            boolValues: 
+            stringValues: []
+            vector4Values: []
+            objectReferences: []
+          setProperty: 0
         layoutOptionParams: []
         fsmStringParams: []
         fsmObjectParams:
@@ -3347,17 +3887,21 @@ MonoBehaviour:
         stringParams:
         - ARMOR
         - WEAPON
-        byteData: 000000
+        byteData: 0000000000
         arrayParamSizes: 0200000002000000
         arrayParamTypes:
         - HutongGames.PlayMaker.FsmEnum
         - HutongGames.PlayMaker.FsmEvent
         customTypeSizes: 
         customTypeNames: []
-        paramDataType: 14000000180000000100000024000000010000002a0000000c0000002a0000002a0000000c000000170000001700000001000000
+        paramDataType: 1400000018000000010000002400000001000000240000000100000024000000010000002a0000000c0000002a0000002a0000000c000000170000001700000001000000
         paramName:
         - gameObject
         - storeComponent
+        - everyFrame
+        - targetProperty
+        - everyFrame
+        - targetProperty
         - everyFrame
         - targetProperty
         - everyFrame
@@ -3369,8 +3913,8 @@ MonoBehaviour:
         - 
         - 
         - everyFrame
-        paramDataPos: 00000000000000000000000000000000010000000000000000000000010000000200000001000000000000000100000002000000
-        paramByteDataSize: 00000000000000000100000000000000010000000000000000000000000000000000000000000000000000000000000001000000
+        paramDataPos: 0000000000000000000000000000000001000000010000000200000002000000030000000000000000000000010000000200000001000000000000000100000004000000
+        paramByteDataSize: 0000000000000000010000000000000001000000000000000100000000000000010000000000000000000000000000000000000000000000000000000000000001000000
     - name: State 15
       description: 
       colorIndex: 0
@@ -3435,7 +3979,7 @@ MonoBehaviour:
         fsmVarParams: []
         fsmArrayParams:
         - useVariable: 1
-          name: CodeArray
+          name: CodeWeaponArray
           tooltip: 
           showInInspector: 0
           networkSync: 0
@@ -3445,10 +3989,10 @@ MonoBehaviour:
           intValues: 
           boolValues: 
           stringValues:
-          - A
-          - D
-          - A
-          - D
+          - C
+          - X
+          - Z
+          - C
           vector4Values: []
           objectReferences: []
         fsmEnumParams: []
@@ -3543,7 +4087,7 @@ MonoBehaviour:
         fsmVarParams: []
         fsmArrayParams:
         - useVariable: 1
-          name: CodeArray2
+          name: CodeArmorArray
           tooltip: 
           showInInspector: 0
           networkSync: 0
@@ -3553,10 +4097,10 @@ MonoBehaviour:
           intValues: 
           boolValues: 
           stringValues:
-          - D
-          - D
-          - D
-          - A
+          - Z
+          - X
+          - X
+          - Z
           vector4Values: []
           objectReferences: []
         fsmEnumParams: []
@@ -4377,6 +4921,18 @@ MonoBehaviour:
         showInInspector: 0
         networkSync: 0
         value: 0
+      - useVariable: 1
+        name: PushSpeed
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 0
+      - useVariable: 1
+        name: PushTime
+        tooltip: 
+        showInInspector: 0
+        networkSync: 0
+        value: 0
       intVariables: []
       boolVariables: []
       stringVariables:
@@ -4450,7 +5006,7 @@ MonoBehaviour:
       textureVariables: []
       arrayVariables:
       - useVariable: 1
-        name: CodeArray
+        name: CodeWeaponArray
         tooltip: 
         showInInspector: 0
         networkSync: 0
@@ -4460,14 +5016,14 @@ MonoBehaviour:
         intValues: 
         boolValues: 
         stringValues:
-        - A
-        - D
-        - A
-        - D
+        - C
+        - X
+        - Z
+        - C
         vector4Values: []
         objectReferences: []
       - useVariable: 1
-        name: CodeArray2
+        name: CodeArmorArray
         tooltip: 
         showInInspector: 0
         networkSync: 0
@@ -4477,10 +5033,10 @@ MonoBehaviour:
         intValues: 
         boolValues: 
         stringValues:
-        - D
-        - D
-        - D
-        - A
+        - Z
+        - X
+        - X
+        - Z
         vector4Values: []
         objectReferences: []
       - useVariable: 1
@@ -4523,7 +5079,7 @@ MonoBehaviour:
         intValue: 0
       categories:
       - 
-      variableCategoryIDs: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      variableCategoryIDs: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
     description: 
     docUrl: 
     showStateLabel: 0
