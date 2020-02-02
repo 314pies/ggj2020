@@ -1030,6 +1030,16 @@ PrefabInstance:
       propertyPath: m_textAlignment
       value: 258
       objectReference: {fileID: 0}
+    - target: {fileID: 1424192380338471330, guid: b419a5f499b1bfc46a3b688abf5f786b,
+        type: 3}
+      propertyPath: m_text
+      value: XZZX
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424192380338471330, guid: b419a5f499b1bfc46a3b688abf5f786b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1424192380338471331, guid: b419a5f499b1bfc46a3b688abf5f786b,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1044,6 +1054,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textAlignment
       value: 258
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424192381394575480, guid: b419a5f499b1bfc46a3b688abf5f786b,
+        type: 3}
+      propertyPath: m_text
+      value: CXZC
+      objectReference: {fileID: 0}
+    - target: {fileID: 1424192381394575480, guid: b419a5f499b1bfc46a3b688abf5f786b,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1424192381394575481, guid: b419a5f499b1bfc46a3b688abf5f786b,
         type: 3}
