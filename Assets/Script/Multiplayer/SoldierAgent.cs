@@ -21,6 +21,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
 
     public override void Attached()
     {
+        ServerBaseMass = GetComponent<Rigidbody2D>().mass;
         state.SetTransforms(state.trans, transform);
 
         Transform animatorTransform = transform.Find("Animator/TmpSprite");
@@ -36,6 +37,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             if (isEntityOwner)
             {
                 ServerUpdateAnimation();
+                CalculateStats();
             }
         }
         );
@@ -117,11 +119,16 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
                 serverKnockBackCoolDownPass = 0.0f;
                 serverSoldierState = SoldierStateEnum.HitBack;
                 break;
+            case UnitTypeEnum.Item:
+                var itemEntity = hit.GetComponent<BoltEntity>();
+                ServerSetEquipment(itemEntity);
+                break;
         }
     }
 
+
     const string equipmentsGroup = "Equipments";
-    
+
     [BoxGroup(equipmentsGroup)]
     [ShowInInspector]
     public BoltEntity Weapon
@@ -150,20 +157,37 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [Button]
     public void ServerSetEquipment(BoltEntity equipmentEntity)
     {
-        switch (equipmentEntity.GetComponent<ItemAgent>().itemType)
+        var itemAgent = equipmentEntity.GetComponent<ItemAgent>();
+        if(itemAgent == null) { return; }
+        if (itemAgent.itemState != ItemStateEnum.New) { return; }
+        if(itemAgent.state.Holder.HoldBy!= null) { return; }
+
+        switch (itemAgent.itemType)
         {
             case ItemTypeEnum.Armor:
-                state.Equiping.Armor = equipmentEntity;
+                if (state.Equiping.Armor == null)
+                {
+                    state.Equiping.Armor = equipmentEntity;
+                    itemAgent.ServerSetHolder(entity,Vector3.zero);
+                    itemAgent.ServerSetIsRenderer(false);
+                }                   
                 break;
             case ItemTypeEnum.Weapon:
-                state.Equiping.Weapon = equipmentEntity;
+                if (state.Equiping.Weapon == null)
+                {
+                    state.Equiping.Weapon = equipmentEntity;
+                    itemAgent.ServerSetHolder(entity, Vector3.zero);
+                    itemAgent.ServerSetIsRenderer(false);
+                }                   
                 break;
         }
 
     }
 
+   
+
     const string attackAndDefenceGroup = "Attack and Defense";
-    const string equipmentModSubGroup = attackAndDefenceGroup + "/Runtime Calculated Parameters";
+    const string equipmentModSubGroup = attackAndDefenceGroup + "/Runtime Calculated Stats";
     /// <summary>
     /// Knock back force apply to opponent
     /// </summary>
@@ -178,11 +202,17 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [ShowInInspector]
     public Vector2 FinalKnockBackForce { get { return ServerBaseAttKnockBackForce + ServerModAttKnockBackForce; } }
     /// <summary>
+    /// Same as the initial value of rigid body
+    /// </summary>
+    [BoxGroup(equipmentModSubGroup)]
+    [ReadOnly]
+    public float ServerBaseMass;
+    /// <summary>
     /// Defense
     /// </summary>
     [BoxGroup(equipmentModSubGroup)]
     [ShowInInspector]
-    public float MessAkaDefense { get { return GetComponent<Rigidbody2D>().mass; } }
+    public float ServerFinalMass { get { return GetComponent<Rigidbody2D>().mass; } }
 
     void ServerKnockback(Rigidbody2D rigid)
     {
@@ -196,6 +226,31 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         rigid.AddForce(newKnockbackForce, ForceMode2D.Impulse);
     }
 
+    /// <summary>
+    /// Calculate stats according to equipped equipments
+    /// </summary>
+    [Button]
+    [BoxGroup(equipmentModSubGroup)]    
+    public void CalculateStats()
+    {
+        Vector2 attackMod = Vector3.zero;
+        float defenceMod = 0.0f;
+        if (state.Equiping.Armor != null)
+        {
+            var itemStats = state.Equiping.Armor.GetComponent<ItemAgent>().GetItemStats();
+            attackMod += itemStats.Attack;
+            defenceMod += itemStats.Defence;
+        }
+        if (state.Equiping.Weapon != null)
+        {
+            var itemStats = state.Equiping.Weapon.GetComponent<ItemAgent>().GetItemStats();
+            attackMod += itemStats.Attack;
+            defenceMod += itemStats.Defence;
+        }
+        ServerModAttKnockBackForce = attackMod;
+        //Use mass to represent defense stats
+        GetComponent<Rigidbody2D>().mass = ServerBaseMass + defenceMod;
+    }
 
     [ReadOnly]
     [BoxGroup(attackAndDefenceGroup)]

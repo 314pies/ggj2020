@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum ItemStateEnum
 {
-    None,
     New,
     Garbage,
 }
