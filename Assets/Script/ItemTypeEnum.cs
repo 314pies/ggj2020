@@ -5,6 +5,6 @@ using UnityEngine;
 public enum ItemTypeEnum
 { 
     None,
-    Equipment,
+    Armor,
     Weapon,
 }

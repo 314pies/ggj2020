@@ -5,6 +5,8 @@ using Bolt.Matchmaking;
 using UdpKit;
 using UnityEngine;
 using CliffLeeCL;
+using Sirenix.OdinInspector;
+
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
     public GameObject UI;
@@ -125,8 +127,16 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         Debug.Log("Recieve PlayerPickDropItemReq " + evnt.Player);
         evnt.Player.GetComponent<PlayerInteraction>().ServerSetHoldingItem(evnt.DroppingItem);
     }
-    private void aa()
+
+    [Button]
+    private void SpawnBoltPrefab(GameObject item,Vector3 position)
     {
-        //ServerSetHoldingItem();
+        BoltNetwork.Instantiate(item, position,item.transform.rotation);
+    }
+
+    [Button]
+    private void SpawnArmor()
+    {
+        BoltNetwork.Instantiate(BoltPrefabs.Armor,Vector3.zero,Quaternion.identity);
     }
 }

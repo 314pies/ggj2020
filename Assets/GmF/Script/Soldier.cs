@@ -166,7 +166,7 @@ public class Soldier : MonoBehaviour
                             Destroy(other_item.gameObject);
                             InitAnim();
                         }
-                        if (EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Equipment)
+                        if (EquipmentItem == null && other_item.itemSetting.ItemType == ItemTypeEnum.Armor)
                         {
                             audioSource.PlayOneShot(Get, 0.5f);
                             EquipmentItem = new ItemSetting();

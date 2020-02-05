@@ -29,6 +29,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             animator = animatorTransform.gameObject.GetComponent<Animator>();
             state.SetAnimator(animator);
         }
+        ServerUpdateAnimation();
 
         state.AddCallback("Equiping", () =>
         {
@@ -123,20 +124,42 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     
     [BoxGroup(equipmentsGroup)]
     [ShowInInspector]
-    public Equipments equipments
+    public BoltEntity Weapon
     {
         get
         {
             if (entity.IsAttached)
-                return state.Equiping;
+                return state.Equiping.Weapon;
             return null;
         }
     }
     [BoxGroup(equipmentsGroup)]
+    [ShowInInspector]
+    public BoltEntity Armor
+    {
+        get
+        {
+            if (entity.IsAttached)
+                return state.Equiping.Armor;
+            return null;
+        }
+    }
+
+
+    [BoxGroup(equipmentsGroup)]
     [Button]
     public void ServerSetEquipment(BoltEntity equipmentEntity)
     {
-        //state.Equiping
+        switch (equipmentEntity.GetComponent<ItemAgent>().itemType)
+        {
+            case ItemTypeEnum.Armor:
+                state.Equiping.Armor = equipmentEntity;
+                break;
+            case ItemTypeEnum.Weapon:
+                state.Equiping.Weapon = equipmentEntity;
+                break;
+        }
+
     }
 
     const string attackAndDefenceGroup = "Attack and Defense";

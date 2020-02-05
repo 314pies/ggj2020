@@ -28,7 +28,8 @@ namespace CliffLeeCL
         /// </summary>
         public void UpdateAnimator()
         {
-          animator.SetFloat("Velocity", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
+            if (animator != null)
+                animator.SetFloat("Velocity", Mathf.Abs(GetComponent<Rigidbody2D>().velocity.x));
         }
     }
 }

@@ -272,6 +272,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoldierR
       objectReference: {fileID: 0}
+    - target: {fileID: 4239015584378819360, guid: f63dde837a8f54362a1b397e568d1f4c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f63dde837a8f54362a1b397e568d1f4c, type: 3}
 --- !u!1 &341884232
@@ -337,12 +342,7 @@ PrefabInstance:
     - target: {fileID: 1635116928756574236, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: m_Name
-      value: MyBoltLauncher
-      objectReference: {fileID: 0}
-    - target: {fileID: 1635116928756574236, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      value: MainBoltLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 1635116928756574238, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
@@ -397,91 +397,6 @@ PrefabInstance:
     - target: {fileID: 1635116928756574238, guid: 0bbab64f27d094796a239b60eebab4d7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683819627133898605, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683819627133898605, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683819627133898605, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683819627133898605, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2683819627133898605, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4396852656037026722, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4396852656037026722, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4396852656037026722, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4396852656037026722, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4965532133587752321, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5064662247375587263, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330715619234144895, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.characterCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330715619234144895, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.spaceCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330715619234144895, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.wordCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330715619234144895, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.lineCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5330715619234144895, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_textInfo.pageCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9132420467198466569, guid: 0bbab64f27d094796a239b60eebab4d7,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -557,6 +472,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SoldierL
+      objectReference: {fileID: 0}
+    - target: {fileID: 3044581957363683539, guid: 5f79b0397a128424f9986a6d3b708868,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f79b0397a128424f9986a6d3b708868, type: 3}
