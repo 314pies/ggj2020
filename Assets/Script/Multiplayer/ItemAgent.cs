@@ -52,7 +52,7 @@ public class ItemAgent : EntityBehaviour<IItem>
                 //Start syncing position
                 state.SetTransforms(state.trnas, transform);
                 GetComponent<Rigidbody2D>().isKinematic = false;
-                GetComponent<Collider>().enabled = true;
+                GetComponent<Collider2D>().enabled = true;
 
             }
         });

@@ -41,6 +41,16 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             }
         }
         );
+
+        if (entity.IsOwner)
+        {
+            StartCoroutine(waitAndEquip());
+        }
+    }
+    IEnumerator waitAndEquip()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ServerSetupInitialEquipment();
     }
 
     void Update()
@@ -115,8 +125,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
                     ServerKnockback(rigid);
 
                 //Change state
-                //Initialize KnockBackCoolDown
+                //Initialize KnockBackCoolDownConter
                 serverKnockBackCoolDownPass = 0.0f;
+                isItemDropped = false;
                 serverSoldierState = SoldierStateEnum.HitBack;
                 break;
             case UnitTypeEnum.Item:
@@ -129,6 +140,8 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
 
     const string equipmentsGroup = "Equipments";
 
+    [BoxGroup(equipmentsGroup)]
+    public GameObject[] InitialEquipments;
     [BoxGroup(equipmentsGroup)]
     [ShowInInspector]
     public BoltEntity Weapon
@@ -152,15 +165,22 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         }
     }
 
-
+    void ServerSetupInitialEquipment()
+    {
+        foreach (var quipment in InitialEquipments)
+        {
+            var entity = BoltNetwork.Instantiate(quipment);
+            ServerSetEquipment(entity);
+        }
+    }
     [BoxGroup(equipmentsGroup)]
     [Button]
     public void ServerSetEquipment(BoltEntity equipmentEntity)
     {
         var itemAgent = equipmentEntity.GetComponent<ItemAgent>();
-        if(itemAgent == null) { return; }
+        if (itemAgent == null) { return; }
         if (itemAgent.itemState != ItemStateEnum.New) { return; }
-        if(itemAgent.state.Holder.HoldBy!= null) { return; }
+        if (itemAgent.state.Holder.HoldBy != null) { return; }
 
         switch (itemAgent.itemType)
         {
@@ -168,9 +188,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
                 if (state.Equiping.Armor == null)
                 {
                     state.Equiping.Armor = equipmentEntity;
-                    itemAgent.ServerSetHolder(entity,Vector3.zero);
+                    itemAgent.ServerSetHolder(entity, Vector3.zero);
                     itemAgent.ServerSetIsRenderer(false);
-                }                   
+                }
                 break;
             case ItemTypeEnum.Weapon:
                 if (state.Equiping.Weapon == null)
@@ -178,13 +198,50 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
                     state.Equiping.Weapon = equipmentEntity;
                     itemAgent.ServerSetHolder(entity, Vector3.zero);
                     itemAgent.ServerSetIsRenderer(false);
-                }                   
+                }
                 break;
         }
 
     }
-
-   
+    [BoxGroup(equipmentsGroup)]
+    [Button]
+    public void ServerDropEquipment(ItemTypeEnum itemType)
+    {
+        switch (itemType)
+        {
+            case ItemTypeEnum.Armor:
+                if (state.Equiping.Armor != null)
+                {
+                    var itemAgent = state.Equiping.Armor.GetComponent<ItemAgent>();
+                    itemAgent.ServerSetItemState(ItemStateEnum.Garbage);
+                    itemAgent.ServerSetHolder(null, Vector3.zero);
+                    itemAgent.ServerSetIsRenderer(true);
+                    state.Equiping.Armor = null;
+                }
+                break;
+            case ItemTypeEnum.Weapon:
+                if (state.Equiping.Weapon != null)
+                {
+                    var itemAgent = state.Equiping.Weapon.GetComponent<ItemAgent>();
+                    itemAgent.ServerSetItemState(ItemStateEnum.Garbage);
+                    itemAgent.ServerSetHolder(null, Vector3.zero);
+                    itemAgent.ServerSetIsRenderer(true);
+                    state.Equiping.Weapon = null;
+                }
+                break;
+        }
+    }
+    [BoxGroup(equipmentsGroup)]
+    [Button]
+    public void ServerDropRandomEquipment()
+    {
+        if (state.Equiping.Armor != null && state.Equiping.Weapon != null)        
+            ServerDropEquipment((ItemTypeEnum)Random.Range(1, 3));
+        else if(state.Equiping.Armor != null)
+            ServerDropEquipment(ItemTypeEnum.Armor);
+        else if (state.Equiping.Weapon != null)
+            ServerDropEquipment(ItemTypeEnum.Weapon);
+    }
 
     const string attackAndDefenceGroup = "Attack and Defense";
     const string equipmentModSubGroup = attackAndDefenceGroup + "/Runtime Calculated Stats";
@@ -195,6 +252,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     public Vector2 ServerBaseAttKnockBackForce = new Vector2(5, 3);
     [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCooldown = 1.5f;
+    public float serverKnockBackDropItemDelay = 0.5f;
 
     [BoxGroup(equipmentModSubGroup)]
     public Vector2 ServerModAttKnockBackForce = Vector2.zero;
@@ -230,7 +288,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     /// Calculate stats according to equipped equipments
     /// </summary>
     [Button]
-    [BoxGroup(equipmentModSubGroup)]    
+    [BoxGroup(equipmentModSubGroup)]
     public void CalculateStats()
     {
         Vector2 attackMod = Vector3.zero;
@@ -255,9 +313,16 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [ReadOnly]
     [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCoolDownPass = 0.0f;
+    bool isItemDropped = false;
     void ServerKnockBackCooldownCounter()
     {
         serverKnockBackCoolDownPass += Time.deltaTime;
+        if (serverKnockBackCoolDownPass > serverKnockBackDropItemDelay && isItemDropped == false)
+        {
+            isItemDropped = true;
+            //Drop item
+            ServerDropRandomEquipment();           
+        }
         if (serverKnockBackCoolDownPass > serverKnockBackCooldown)
             serverSoldierState = SoldierStateEnum.Move;
     }
