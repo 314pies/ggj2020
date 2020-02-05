@@ -114,20 +114,40 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         }
     }
 
-    public Vector2 KnockBackBaseForce = Vector2.right;
+    const string attackAndDefenceGroup = "Attack and Defense";
+    const string equipmentModSubGroup = attackAndDefenceGroup + "/Runtime Calculated Parameters";
+    /// <summary>
+    /// Knock back force apply to opponent
+    /// </summary>
+    [BoxGroup(attackAndDefenceGroup)]
+    public Vector2 ServerBaseAttKnockBackForce = new Vector2(5,3);
+    [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCooldown = 1.5f;
+
+    [BoxGroup(equipmentModSubGroup)]
+    public Vector2 ServerModAttKnockBackForce = Vector2.zero;
+    [BoxGroup(equipmentModSubGroup)]
+    [ShowInInspector]
+    public Vector2 FinalKnockBackForce { get { return ServerBaseAttKnockBackForce + ServerModAttKnockBackForce; } }
+    [BoxGroup(equipmentModSubGroup)]
+    [ShowInInspector]
+    public float Mess { get { return GetComponent<Rigidbody2D>().mass; } }
 
     void ServerKnockback(Rigidbody2D rigid)
     {
-       
         float dir = side == SideEnem.Left ? 1.0f : -1.0f;
-        Vector2 newKnockbackForce = new Vector2(dir * KnockBackBaseForce.x, KnockBackBaseForce.y);
-        Debug.Log("hit" + newKnockbackForce);
+
+        Vector2 newKnockbackForce = new Vector2(
+                                    dir * FinalKnockBackForce.x,
+                                    FinalKnockBackForce.y);
+
+        Debug.Log("Added knock back force " + newKnockbackForce, rigid);
         rigid.AddForce(newKnockbackForce, ForceMode2D.Impulse);
     }
 
    
     [ReadOnly]
+    [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCoolDownPass = 0.0f;
     void ServerKnockBackCooldownCounter()
     {
