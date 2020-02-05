@@ -82,14 +82,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   side: 1
-  KnockBackBaseForce: {x: 5, y: 1.25}
+  ServerBaseAttKnockBackForce: {x: 5, y: 3}
   serverKnockBackCooldown: 5
+  ServerModAttKnockBackForce: {x: 0, y: 0}
   serverKnockBackCoolDownPass: 0
   checkerPositionOffset: {x: -0.91, y: -2.04, z: -0.61}
   checkerRadius: 1
   checkLayer:
     serializedVersion: 2
     m_Bits: 1024
+  HaveWeaponAndEquipmentAnimName: All
+  JustWeaponAnimName: swordani
+  JustEquipmentAnimName: Armorani
+  NoItemAnimName: Peopleani
   SetIsOwnerToTrue: 1
 --- !u!114 &4316851663689491338
 MonoBehaviour:
@@ -198,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: e394f0e8-8370-41fd-b903-c10d9c3c028d
-  _prefabId: 4
+  _prefabId: 2
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bolt;
-public class DropItemAgent : EntityBehaviour<IDroppingItem>
+
+public class ItemAgent : EntityBehaviour<IItem>
 {
     public override void Attached()
     {
-        state.SetTransforms(state.trans, transform);
+        //state.SetTransforms(state.trnas, null);
     }
 }

@@ -26,12 +26,19 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         Transform animatorTransform = transform.Find("Animator/TmpSprite");
         if (animatorTransform != null)
         {
-            var animator = animatorTransform.gameObject.GetComponent<Animator>();
+            animator = animatorTransform.gameObject.GetComponent<Animator>();
             state.SetAnimator(animator);
         }
+
+        state.AddCallback("Equiping", () =>
+        {
+            if (isEntityOwner)
+            {
+                ServerUpdateAnimation();
+            }
+        }
+        );
     }
-
-
 
     void Update()
     {
@@ -39,8 +46,6 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         if (isEntityOwner)
             ServerUpdate();
     }
-
-  
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
@@ -82,7 +87,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             case SoldierStateEnum.HitBack:
                 ServerKnockBackCooldownCounter();
                 break;
-        }       
+        }
     }
 
     void ServerMove()
@@ -114,13 +119,33 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         }
     }
 
+    const string equipmentsGroup = "Equipments";
+    
+    [BoxGroup(equipmentsGroup)]
+    [ShowInInspector]
+    public Equipments equipments
+    {
+        get
+        {
+            if (entity.IsAttached)
+                return state.Equiping;
+            return null;
+        }
+    }
+    [BoxGroup(equipmentsGroup)]
+    [Button]
+    public void ServerSetEquipment(BoltEntity equipmentEntity)
+    {
+        //state.Equiping
+    }
+
     const string attackAndDefenceGroup = "Attack and Defense";
     const string equipmentModSubGroup = attackAndDefenceGroup + "/Runtime Calculated Parameters";
     /// <summary>
     /// Knock back force apply to opponent
     /// </summary>
     [BoxGroup(attackAndDefenceGroup)]
-    public Vector2 ServerBaseAttKnockBackForce = new Vector2(5,3);
+    public Vector2 ServerBaseAttKnockBackForce = new Vector2(5, 3);
     [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCooldown = 1.5f;
 
@@ -129,9 +154,12 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [BoxGroup(equipmentModSubGroup)]
     [ShowInInspector]
     public Vector2 FinalKnockBackForce { get { return ServerBaseAttKnockBackForce + ServerModAttKnockBackForce; } }
+    /// <summary>
+    /// Defense
+    /// </summary>
     [BoxGroup(equipmentModSubGroup)]
     [ShowInInspector]
-    public float Mess { get { return GetComponent<Rigidbody2D>().mass; } }
+    public float MessAkaDefense { get { return GetComponent<Rigidbody2D>().mass; } }
 
     void ServerKnockback(Rigidbody2D rigid)
     {
@@ -145,7 +173,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         rigid.AddForce(newKnockbackForce, ForceMode2D.Impulse);
     }
 
-   
+
     [ReadOnly]
     [BoxGroup(attackAndDefenceGroup)]
     public float serverKnockBackCoolDownPass = 0.0f;
@@ -180,6 +208,36 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [BoxGroup(groundCheckGroup)]
     public LayerMask checkLayer;
     #endregion
+
+    const string animationGroup = "Animations";
+    Animator animator;
+    [BoxGroup(animationGroup)]
+    public string
+        HaveWeaponAndEquipmentAnimName = "All",
+        JustWeaponAnimName = "swordani",
+        JustEquipmentAnimName = "Armorani",
+        NoItemAnimName = "Peopleani";
+
+    void ServerUpdateAnimation()
+    {
+        if (state.Equiping.Weapon != null && state.Equiping.Armor != null)
+        {
+            animator.Play(HaveWeaponAndEquipmentAnimName);
+        }
+        else if (state.Equiping.Weapon == null && state.Equiping.Armor == null)
+        {
+            animator.Play(NoItemAnimName);
+        }
+        else if (state.Equiping.Weapon != null && state.Equiping.Armor == null)
+        {
+            animator.Play(JustWeaponAnimName);
+        }
+        else if (state.Equiping.Weapon == null && state.Equiping.Armor != null)
+        {
+            animator.Play(JustEquipmentAnimName);
+        }
+    }
+
     #endregion
 
 
@@ -193,9 +251,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
 #endif
     void OnDrawGizmosSelected()
     {
-#region Ground Check
+        #region Ground Check
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position + checkerPositionOffset, checkerRadius);
-#endregion
+        #endregion
     }
 }
