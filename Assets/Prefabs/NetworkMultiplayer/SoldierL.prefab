@@ -40,13 +40,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1538141231587114804}
-  - component: {fileID: 591083949574073792}
+  - component: {fileID: 993899205096238890}
+  - component: {fileID: 4316851663689491338}
   - component: {fileID: 2984968986568568927}
   - component: {fileID: 2692720771859343978}
   - component: {fileID: 5549877160655080641}
-  - component: {fileID: 4316851663689491338}
   - component: {fileID: 2629777871076770328}
-  - component: {fileID: 993899205096238890}
   m_Layer: 11
   m_Name: SoldierL
   m_TagString: Soldier
@@ -61,15 +60,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3044581957363683539}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5, y: 2, z: 10}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 1644370979993260357}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &591083949574073792
+--- !u!114 &993899205096238890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,10 +77,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 3044581957363683539}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f3a60460691ea647868d230e4cb0cbc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5552db89a62084fe68021b5a923dc56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveSpeed: 2
   side: 1
+  KnockBackBaseForce: {x: 5, y: 1.25}
+  serverKnockBackCooldown: 5
+  serverKnockBackCoolDownPass: 0
+  checkerPositionOffset: {x: -0.91, y: -2.04, z: -0.61}
+  checkerRadius: 1
+  checkLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  SetIsOwnerToTrue: 1
+--- !u!114 &4316851663689491338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3044581957363683539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c772c2518aa7854a9a0a738e458871d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitType: 2
 --- !u!70 &2984968986568568927
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -126,13 +148,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3044581957363683539}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a601683c661b6e040a75a114ad98175b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   side: 1
-  moveSpeed: 5
+  moveSpeed: 2
   hitBackTime: 1
   PushBaseSpeed: 2
   PushBaseTime: 1
@@ -162,19 +184,6 @@ MonoBehaviour:
   JustWeaponAnimName: swordani
   JustEquipmentAnimName: Armorani
   NoItemAnimName: Peopleani
---- !u!114 &4316851663689491338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044581957363683539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c772c2518aa7854a9a0a738e458871d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnitType: 2
 --- !u!114 &2629777871076770328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,18 +213,6 @@ MonoBehaviour:
   _entityBehaviourQueryOption: 0
   _entityPriorityCalculatorQueryOption: 0
   _entityReplicationFilterQueryOption: 0
---- !u!114 &993899205096238890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044581957363683539}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5552db89a62084fe68021b5a923dc56c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7630746047516477931
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Obsolete]
 public class Soldier : MonoBehaviour
 {
     public SideEnem side = SideEnem.None;
@@ -61,7 +62,7 @@ public class Soldier : MonoBehaviour
 
     private void Awake()
     {
-        side = GetComponent<Side>().side;
+        side = GetComponent<SoldierAgent>().side;
         soldierState = SoldierStateEnum.Init;
         audioSource = GetComponent<AudioSource>();
         Transform animatorTransform = transform.Find("Animator/TmpSprite");
@@ -117,10 +118,7 @@ public class Soldier : MonoBehaviour
     /// </summary>
     private void UpdateIsGrounded()
     {
-        if (Physics2D.OverlapCircle(transform.position + checkerPositionOffset, checkerRadius, checkLayer))
-            isGrounded = true;
-        else
-            isGrounded = false;
+        isGrounded = Physics2D.OverlapCircle(transform.position + checkerPositionOffset, checkerRadius, checkLayer);
     }
 
     private void OnHit(GameObject hit)
@@ -222,6 +220,7 @@ public class Soldier : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D hit)
     {
+        return;
         if (hit == null || hit.gameObject == null)
         {
             return;
@@ -231,7 +230,8 @@ public class Soldier : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D hit)
     {
-        if(hit == null || hit.gameObject == null)
+        return;
+        if (hit == null || hit.gameObject == null)
         {
             return;
         }

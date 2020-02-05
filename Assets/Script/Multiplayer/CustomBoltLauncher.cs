@@ -7,27 +7,27 @@ using UnityEngine;
 using CliffLeeCL;
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
-    public GameObject UI,LL,RR;
+    public GameObject UI;
     public Vector3 PlayerSpawnPoint;
-	//void OnGUI()
-	//{
- //       if (BoltNetwork.IsRunning) { return; }
-	//	GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
+    void OnGUI()
+    {
+        if (BoltNetwork.IsRunning) { return; }
+        GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
 
-	//	if (GUILayout.Button("Start Server", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
-	//	{
-	//		// START SERVER
-	//		BoltLauncher.StartServer();
-	//	}
+        if (GUILayout.Button("Start Server", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
+        {
+            // START SERVER
+            BoltLauncher.StartServer();
+        }
 
-	//	if (GUILayout.Button("Start Client", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
-	//	{
-	//		// START CLIENT
-	//		BoltLauncher.StartClient();
-	//	}
+        if (GUILayout.Button("Start Client", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true)))
+        {
+            // START CLIENT
+            BoltLauncher.StartClient();
+        }
 
-	//	GUILayout.EndArea();
-	//}
+        GUILayout.EndArea();
+    }
 
 
     public void StartServer()
@@ -40,24 +40,21 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         BoltLauncher.StartClient();
     }
 
-	public override void BoltStartDone()
-	{
-		if (BoltNetwork.IsServer)
-		{
-			string matchName = Guid.NewGuid().ToString();
+    public override void BoltStartDone()
+    {
+        if (BoltNetwork.IsServer)
+        {
+            string matchName = Guid.NewGuid().ToString();
 
-			BoltMatchmaking.CreateSession(
-				sessionID: matchName
-			);
+            BoltMatchmaking.CreateSession(
+                sessionID: matchName
+            );
 
-            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player,PlayerSpawnPoint,Quaternion.identity);
+            var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             _player.TakeControl();
             SpawnSoldiers();
         }
         UI.SetActive(false);
-        LL.SetActive(true);
-        RR.SetActive(true);
-
     }
 
 
@@ -106,10 +103,10 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public float SpawnRange = 1.5f;
     void SpawnSoldiers()
     {
-        for(int i = 0; i < SoldierCount; i++)
+        for (int i = 0; i < SoldierCount; i++)
         {
             Vector3 RndPos = LeftSolderSpawnPoint;
-            RndPos.x = RndPos.x  + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
 
             BoltNetwork.Instantiate(BoltPrefabs.SoldierL, RndPos, Quaternion.identity);
 

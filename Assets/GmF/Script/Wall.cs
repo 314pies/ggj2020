@@ -10,7 +10,7 @@ public class Wall : MonoBehaviour
 
     private void Awake()
     {
-        side = gameObject.GetComponent<Side>().side;
+        side = gameObject.GetComponent<SoldierAgent>().side;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -46,7 +46,7 @@ public class Wall : MonoBehaviour
             return;
         }
 
-        Side hitSide = hitGameObject.GetComponent<Side>();
+        var hitSide = hitGameObject.GetComponent<SoldierAgent>();
 
         if (hitSide == null)
         {

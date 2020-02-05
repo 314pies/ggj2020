@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Side : MonoBehaviour
+public enum SoldierStateEnum
 {
-    public SideEnem side = SideEnem.None;
+    Init,
+    Move,
+    HitBack
 }
