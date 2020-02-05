@@ -71,4 +71,10 @@ public class ItemAgent : EntityBehaviour<IItem>
     {
         state.ItemState = (int)item;
     }
+
+    [Button]
+    public void ServerSetIsRenderer(bool isRenderer)
+    {
+        state.IsRender = isRenderer;
+    }
 }
