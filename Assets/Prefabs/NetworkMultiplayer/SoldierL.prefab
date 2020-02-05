@@ -87,7 +87,7 @@ MonoBehaviour:
   - {fileID: 460643650246824878, guid: 6a75285bc50e7004295ad9fb88a51145, type: 3}
   ServerBaseAttKnockBackForce: {x: 5, y: 3}
   serverKnockBackCooldown: 5
-  serverKnockBackDropItemDelay: 0.1
+  serverKnockBackDropItemDelay: 0.15
   ServerModAttKnockBackForce: {x: 0, y: 0}
   ServerBaseMass: 0
   serverKnockBackCoolDownPass: 0

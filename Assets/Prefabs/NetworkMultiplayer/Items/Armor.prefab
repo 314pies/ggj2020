@@ -67,7 +67,7 @@ MonoBehaviour:
   itemType: 1
   itemStats:
     Attack: {x: 1, y: 1}
-    Defence: 2
+    Defence: 0.5
   itemState: 0
 --- !u!114 &3139151408750660588
 MonoBehaviour:
