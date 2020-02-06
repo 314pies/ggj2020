@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
 
 namespace CliffLeeCL
 {
@@ -7,48 +9,48 @@ namespace CliffLeeCL
     /// The class control how the player interact with other objects in the game.
     /// </summary>
     public class PlayerInteraction : MonoBehaviour
-    { 
-    
-        /// <summary>
-        /// Is used to retrieve current collision situation.
-        /// </summary>
-        PlayerCollision collision;
+    {
         public AudioClip impact;
         AudioSource audioSource;
+        PlayerAgent playerAgent { get { return GetComponent<PlayerAgent>(); } }
+        [ShowInInspector]
+        public BoltEntity CurrentCarryingItem { get { return playerAgent.state.CarryingItem; } }
+        public KeyCode UseKey = KeyCode.Space;
+        public float PickingRadius = 1.0f;
+        public LayerMask interactLayerMask;
+        public Vector2 CarryingPosition = new Vector2(0, 3);
+        public GameObject Arrow;
 
         /// <summary>
         /// Start is called once on the frame when a script is enabled.
         /// </summary>
         void Start()
         {
-            collision = GetComponent<PlayerCollision>();
             audioSource = GetComponent<AudioSource>();
-            Assert.IsTrue(collision, "Need \"PlayerCollision\" component on this gameObject");
         }
 
-        public KeyCode UseKey = KeyCode.Space;
-        public float PickingRadius = 1.0f;
-        public LayerMask interactLayerMask;
-        public GameObject CurrendHoldingItem;
-        public Vector2 HoldingPosition;
-        public GameObject Arrow;
 
-
+        [Button]
         void ClientSendHoldItemReq(BoltEntity item)
         {
-            var pickReq = PlayerPickDropItemReq.Create(Bolt.GlobalTargets.OnlyServer);
-            pickReq.Player = GetComponent<BoltEntity>();
-            pickReq.DroppingItem = item;
-
+            var pickReq = PlayerPickItemReq.Create(Bolt.GlobalTargets.OnlyServer);
+            pickReq.Player = playerAgent.entity;
+            pickReq.Item = item;
             pickReq.Send();
         }
 
-        public void ServerSetHoldingItem(GameObject itemFound)
+        [Button]
+        public void ServerSetCarryingItem(BoltEntity itemFound)
         {
-            CurrendHoldingItem = itemFound;
-            OnItemPicked(CurrendHoldingItem);
+            if (playerAgent.state.CarryingItem != null) { return; }
+            var itemAgent = itemFound.GetComponent<ItemAgent>();
+            if (itemAgent == null) { return; }
+            if (itemAgent.state.Holder.HoldBy != null) { return; }
+            itemAgent.ServerSetHolder(playerAgent.entity, CarryingPosition);
+            playerAgent.state.CarryingItem = itemFound;
         }
 
+        //audioSource.PlayOneShot(impact, 0.7F);
 
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -58,101 +60,107 @@ namespace CliffLeeCL
             // Pick up / drop items
             if (Input.GetKeyDown(UseKey))
             {
-                if (CurrentLaunchItem != null) //Launch item
+                if (CurrentCarryingItem == null)
                 {
-                    Arrow.SetActive(true);
-                    // LauchItem(ref CurrentLaunchItem);
+                    var item = GetItemInRange(PickingRadius);
+                    ClientSendHoldItemReq(item.GetComponent<BoltEntity>());
                 }
-                else { 
-                   
-                    var itemFound = ItemInRange(PickingRadius);
-                    if(itemFound != null)
+                if (CurrentCarryingItem != null)
+                {
+                    if(CurrentCarryingItem.GetComponent<ItemAgent>().itemState == ItemStateEnum.New)
                     {
-                        if (itemFound.GetComponent<ItemBase>() != null)
-                        {
-                            ItemStateEnum itemState = itemFound.GetComponent<ItemBase>().itemSetting.ItemState;
-                            if(itemState == ItemStateEnum.Garbage)
-                            {
-                                if(CurrendHoldingItem == null)
-                                {
-                                    Debug.Log("Sending Req");
-                                    ClientSendHoldItemReq(itemFound.GetComponent<BoltEntity>());
-                                }
-                               
-                            }
-                            else if (itemState == ItemStateEnum.New)
-                            {
-                                if (CurrentLaunchItem == null)
-                                {
-                                    SetLaunchingItem(itemFound);
-                                    Arrow.SetActive(true);
-                                }
-                            }
-                        }
+                        //Ready to launch
+                        Arrow.SetActive(true);
                     }
                 }
             }
             if (Input.GetKeyUp(UseKey))
             {
-                if (CurrentLaunchItem != null) //Launch item
+                if (Arrow.activeSelf)
                 {
-                    LauchItem(ref CurrentLaunchItem);
-                    audioSource.PlayOneShot(impact, 0.7F);
-
+                    //Launch item
+                    ClientSentLaunchCarryingItemReq();
+                    Arrow.SetActive(false);
                 }
-
             }
         }
 
-
-        public GameObject ItemInRange(float radius)
+        class ItemInRangePriorityComparer : IComparer<Collider2D>
         {
-            var _collider = Physics2D.OverlapCircle(transform.position, radius, interactLayerMask);
-            if (_collider == null)
-                return null;
-            else
-                return _collider.gameObject;
+            public Vector3 center;
+            public ItemInRangePriorityComparer(Vector3 center)
+            {
+                this.center = center;
+            }
+            public int Compare(Collider2D x, Collider2D y)
+            {
+                var xDistance = Vector3.Distance(center, x.transform.position);
+                var yDistance = Vector3.Distance(center, y.transform.position);
+                if (xDistance > yDistance)
+                    return 1;
+                else if (xDistance < yDistance)
+                    return -1;
+                else
+                    return 0;
+            }
         }
-
-        public void OnItemPicked(GameObject obj)
+        public GameObject GetItemInRange(float radius)
         {
-            obj.transform.parent = transform;
-            obj.transform.localPosition = HoldingPosition;
-            obj.GetComponent<Rigidbody2D>().isKinematic = true;
-        }
+            ContactFilter2D filter = new ContactFilter2D();
+            filter.layerMask = interactLayerMask;
+            List<Collider2D> results = new List<Collider2D>();
+            int count = Physics2D.OverlapCircle(transform.position, radius, filter, results);
+            ItemInRangePriorityComparer comparer = new ItemInRangePriorityComparer(transform.position);
+            results.Sort(comparer);
+            //for (int i = 0; i < count; i++) { Debug.Log(i + "st itemFound: " + results[i], results[i]); }
 
-        public void RemoveHoldingItem()
-        {
-            Destroy(CurrendHoldingItem);
-            CurrendHoldingItem = null;
+            for (int i = 0; i < count; i++)
+            {
+                if (results[i].GetComponent<ItemAgent>() == null) { continue; }
+                if (results[i].GetComponent<BoltEntity>() == null) { continue; }
+                if (results[i].GetComponent<ItemAgent>().state.Holder.HoldBy == null)
+                {
+                    return results[i].gameObject;
+                }
+            }
+            return null;
         }
 
         public GameObject CurrentLaunchItem;
-        public void SetLaunchingItem(GameObject objectToLaunch)
-        {
-            if (CurrentLaunchItem != null) {
-                //Clean up current obj
-            }
-            CurrentLaunchItem = objectToLaunch;
-            OnItemPicked(CurrentLaunchItem);
-        }
 
         public float LaunchForce = 10.0f;
+        [Button]
+        public void ClientSentLaunchCarryingItemReq()
+        {
+            var launchReq = LaunchCarryingItem.Create(Bolt.GlobalTargets.OnlyServer);
+            launchReq.Player = playerAgent.entity;
+            launchReq.ArrowRotation = Arrow.transform.localRotation;
+            launchReq.Send();
+        }
+        [Button]
+        public void ServerLaunchCarryingItem(Quaternion arrowRotation)
+        {
+            if (CurrentCarryingItem != null)
+            {
+                Arrow.transform.localRotation = arrowRotation;
+                CurrentCarryingItem.GetComponent<ItemAgent>().ServerSetHolder(null, Vector3.zero);
+                var itemToLaunch = playerAgent.state.CarryingItem;
+                playerAgent.state.CarryingItem = null;
+                LauchItem(itemToLaunch);
+            }
+        }
 
-        public void LauchItem(ref GameObject itemToLaunch)
+        void LauchItem(GameObject itemToLaunch)
         {
             Vector2 dir = new Vector2(Arrow.transform.up.x, Arrow.transform.up.y);
             if (itemToLaunch.GetComponent<Rigidbody2D>())
             {
-
                 itemToLaunch.transform.parent = null;
                 itemToLaunch.GetComponent<Rigidbody2D>().isKinematic = false;
                 itemToLaunch.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
 
-                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(dir * LaunchForce,ForceMode2D.Impulse);
-                itemToLaunch = null;
+                itemToLaunch.GetComponent<Rigidbody2D>().AddForce(dir * LaunchForce, ForceMode2D.Impulse);
             }
-            Arrow.SetActive(false);
         }
 
         void OnDrawGizmosSelected()

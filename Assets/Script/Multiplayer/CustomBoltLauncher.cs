@@ -122,10 +122,15 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 
 
     //Equip Item
-    public override void OnEvent(PlayerPickDropItemReq evnt)
+    public override void OnEvent(PlayerPickItemReq evnt)
     {
         Debug.Log("Recieve PlayerPickDropItemReq " + evnt.Player);
-        evnt.Player.GetComponent<PlayerInteraction>().ServerSetHoldingItem(evnt.DroppingItem);
+        evnt.Player.GetComponent<PlayerInteraction>().ServerSetCarryingItem(evnt.Item);
+    }
+
+    public override void OnEvent(LaunchCarryingItem evnt)
+    {
+        evnt.Player.GetComponent<PlayerInteraction>().ServerLaunchCarryingItem(evnt.ArrowRotation);
     }
 
     [Button]

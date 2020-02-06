@@ -30,17 +30,18 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             animator = animatorTransform.gameObject.GetComponent<Animator>();
             state.SetAnimator(animator);
         }
-        ServerUpdateAnimation();
+      
 
         state.AddCallback("Equiping", () =>
         {
             if (isEntityOwner)
             {
-                ServerUpdateAnimation();
+                UpdateAnimation();
                 CalculateStats();
             }
         }
         );
+        UpdateAnimation();
 
         if (entity.IsOwner)
         {
@@ -361,7 +362,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         JustEquipmentAnimName = "Armorani",
         NoItemAnimName = "Peopleani";
 
-    void ServerUpdateAnimation()
+    void UpdateAnimation()
     {
         if (state.Equiping.Weapon != null && state.Equiping.Armor != null)
         {

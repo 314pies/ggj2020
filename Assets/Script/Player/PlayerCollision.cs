@@ -7,6 +7,7 @@ namespace CliffLeeCL
     /// <summary>
     /// Handle player-related collision.
     /// </summary>
+    [System.Obsolete]
     public class PlayerCollision : MonoBehaviour
     {
         /// <summary>

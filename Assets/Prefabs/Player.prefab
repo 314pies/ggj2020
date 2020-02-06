@@ -600,9 +600,8 @@ MonoBehaviour:
   PickingRadius: 2.16
   interactLayerMask:
     serializedVersion: 2
-    m_Bits: 16640
-  CurrendHoldingItem: {fileID: 0}
-  HoldingPosition: {x: 0, y: 3}
+    m_Bits: 256
+  CarryingPosition: {x: 0, y: 3}
   Arrow: {fileID: 1870914340}
   CurrentLaunchItem: {fileID: 0}
   LaunchForce: 20

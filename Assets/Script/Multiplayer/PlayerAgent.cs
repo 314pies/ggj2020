@@ -19,19 +19,9 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
             transform.localScale = state.localScale;
         });
 
-        state.AddCallback("HoldingItem", () =>
+        state.AddCallback("CarryingItem", () =>
         {
-            playerInteraction.CurrendHoldingItem = state.HoldingItem;
-        });
-
-        state.AddCallback("HoldingItem", () =>
-        {
-            playerInteraction.CurrendHoldingItem = state.HoldingItem;
-        });
-
-        state.AddCallback("LaunchItem", () =>
-        {
-            playerInteraction.CurrentLaunchItem = state.LaunchItem;
+            //playerInteraction.CurrendHoldingItem = state.HoldingItem;
         });
     }
 
