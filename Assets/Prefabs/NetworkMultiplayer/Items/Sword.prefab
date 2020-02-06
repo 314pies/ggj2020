@@ -67,7 +67,7 @@ MonoBehaviour:
   BrokenSprite: {fileID: 21300000, guid: 87782d420458fbf4fa10b111db13274c, type: 3}
   itemType: 2
   itemStats:
-    Attack: {x: 2, y: 3}
+    Attack: {x: 17, y: 5}
     Defence: 0
   itemState: 0
 --- !u!114 &3139151408750660588

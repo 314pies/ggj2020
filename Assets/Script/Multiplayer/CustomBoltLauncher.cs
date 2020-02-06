@@ -178,4 +178,10 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     {
         BoltNetwork.Instantiate(BoltPrefabs.Armor, Vector3.zero, Quaternion.identity);
     }
+
+    [Button]
+    private void SpawnWeapon()
+    {
+        BoltNetwork.Instantiate(BoltPrefabs.Sword, Vector3.zero, Quaternion.identity);
+    }
 }
