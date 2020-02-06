@@ -717,6 +717,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 637be7f707ff088479e973df35b0bb74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponRepairCommand:
+  - X
+  - Z
+  - Z
+  - X
+  ArmorRepairCommand:
+  - C
+  - X
+  - Z
+  - C
   status: 0
   CurrentCapturingPlayer: {fileID: 0}
   command:

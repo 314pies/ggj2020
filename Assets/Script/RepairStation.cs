@@ -9,6 +9,9 @@ using UnityEngine.UI;
 public class RepairStation : MonoBehaviour
 {
     public enum Status { Idle, CapturingInput }
+    public string[] WeaponRepairCommand = new string[] {"X","Z","Z","X" };
+    public string[] ArmorRepairCommand = new string[] { "C", "X", "Z", "C" };
+
     [ReadOnly]
     public Status status = Status.Idle;
     public GameObject CurrentCapturingPlayer;
@@ -28,9 +31,16 @@ public class RepairStation : MonoBehaviour
             //InitialCapturing(playerAgent.gameObject); return;
             var carryingItem = playerAgent.state.CarryingItem;
             if (carryingItem == null) { return; }
-            if (carryingItem.GetComponent<ItemAgent>().itemState == ItemStateEnum.Garbage)
+            var itemAgent = carryingItem.GetComponent<ItemAgent>();
+            if (itemAgent.itemState == ItemStateEnum.Garbage)
             {
-                InitialCapturing(playerAgent.gameObject);
+                string[] command = null;
+                if (itemAgent.itemType == ItemTypeEnum.Weapon)
+                    command = WeaponRepairCommand;
+                else if (itemAgent.itemType == ItemTypeEnum.Armor)
+                         command = ArmorRepairCommand;
+
+                InitialCapturing(playerAgent.gameObject, command);
             }
         }
     }
