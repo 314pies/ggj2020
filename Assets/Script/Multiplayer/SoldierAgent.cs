@@ -30,28 +30,26 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
             animator = animatorTransform.gameObject.GetComponent<Animator>();
             state.SetAnimator(animator);
         }
-      
+
 
         state.AddCallback("Equiping", () =>
         {
             UpdateAnimation();
             if (isEntityOwner)
-            {               
+            {
                 CalculateStats();
             }
         }
         );
-        UpdateAnimation();
-
-        if (entity.IsOwner)
-        {
-            StartCoroutine(waitAndEquip());
-        }
+        StartCoroutine(waitUntilOtherComponentsInitialzied());
     }
-    IEnumerator waitAndEquip()
+    IEnumerator waitUntilOtherComponentsInitialzied()
     {
         yield return new WaitForSeconds(0.1f);
-        ServerSetupInitialEquipment();
+        if (entity.IsOwner)
+            ServerSetupInitialEquipment();
+
+        UpdateAnimation();
     }
 
     void Update()
@@ -236,9 +234,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     [Button]
     public void ServerDropRandomEquipment()
     {
-        if (state.Equiping.Armor != null && state.Equiping.Weapon != null)        
+        if (state.Equiping.Armor != null && state.Equiping.Weapon != null)
             ServerDropEquipment((ItemTypeEnum)Random.Range(1, 3));
-        else if(state.Equiping.Armor != null)
+        else if (state.Equiping.Armor != null)
             ServerDropEquipment(ItemTypeEnum.Armor);
         else if (state.Equiping.Weapon != null)
             ServerDropEquipment(ItemTypeEnum.Weapon);
@@ -322,7 +320,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         {
             isItemDropped = true;
             //Drop item
-            ServerDropRandomEquipment();           
+            ServerDropRandomEquipment();
         }
         if (serverKnockBackCoolDownPass > serverKnockBackCooldown)
             serverSoldierState = SoldierStateEnum.Move;
@@ -366,6 +364,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
     {
         if (state.Equiping.Weapon != null && state.Equiping.Armor != null)
         {
+            Debug.Log("animator.Play(HaveWeaponAndEquipmentAnimName);");
             animator.Play(HaveWeaponAndEquipmentAnimName);
         }
         else if (state.Equiping.Weapon == null && state.Equiping.Armor == null)
