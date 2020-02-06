@@ -125,7 +125,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1635116928756574239}
-        m_MethodName: StartClient
+        m_MethodName: StartJoinRoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -338,6 +338,7 @@ MonoBehaviour:
   UI: {fileID: 9132420467198466569}
   PlayerSpawnPoint: {x: 0, y: -4, z: 0}
   EnableDebugOnGUI: 0
+  roomIDInput: {fileID: 5209416363484622025}
 --- !u!1 &1733525469445607099
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +775,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1635116928756574239}
-        m_MethodName: StartClient
+        m_MethodName: StartQuickMatch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

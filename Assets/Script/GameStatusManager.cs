@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Sirenix.OdinInspector;
 using Bolt;
 using TMPro;
+using Bolt.Matchmaking;
+
 public class GameStatusManager : EntityBehaviour<IGameStatus>
 {
     public enum GameStatus { WaitingForPlayer = 1, Playing, Result };
@@ -20,6 +22,8 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
     public GameObject WaitingForPlayer;
     [BoxGroup(waitingForPlayerGroup)]
     public GameObject StartButton;
+    [BoxGroup(waitingForPlayerGroup)]
+    public TMPro.TMP_Text RoomID;
 
     const string gameResultGroup = UIGroup + "/Game Result";
     [BoxGroup(gameResultGroup)]
@@ -61,6 +65,8 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
         {
             WaitingForPlayer.SetActive(true);
             StartButton.SetActive(entity.IsOwner);
+            Debug.Log("HostName " + BoltMatchmaking.CurrentSession.HostName);
+            RoomID.text = "RoomID: " + BoltMatchmaking.CurrentSession.HostName;
         }
         else
         {
@@ -147,8 +153,8 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
             leftTeamSoldiersCount += (rightTeamPlayerCount - leftTeamPlayerCount);
 
         Debug.Log("Spawning " + leftTeamSoldiersCount + " soldiers for left team.");
-        Vector3 spawnPos = LeftSolderSpawnPoint;       
-        for (int i=0;i< leftTeamSoldiersCount; i++)
+        Vector3 spawnPos = LeftSolderSpawnPoint;
+        for (int i = 0; i < leftTeamSoldiersCount; i++)
         {
             BoltNetwork.Instantiate(BoltPrefabs.SoldierL, spawnPos, Quaternion.identity);
             spawnPos.x += (-SpawnGap);

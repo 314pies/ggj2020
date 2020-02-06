@@ -6,7 +6,7 @@ using UdpKit;
 using UnityEngine;
 using CliffLeeCL;
 using Sirenix.OdinInspector;
-
+using TMPro;
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
     public GameObject UI;
@@ -40,16 +40,35 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         BoltLauncher.StartServer();
     }
 
+    public enum ClientConnectMode { QuickMatch,JoinRoom }
+    ClientConnectMode clientConnectMode;
     public void StartClient()
     {
         BoltLauncher.StartClient();
+    }
+
+    public void StartQuickMatch()
+    {
+        clientConnectMode = ClientConnectMode.QuickMatch;
+        StartClient();
+    }
+
+    public TMP_InputField roomIDInput;
+    public void StartJoinRoom()
+    {
+        clientConnectMode = ClientConnectMode.JoinRoom;
+        StartClient();
     }
 
     public override void BoltStartDone()
     {
         if (BoltNetwork.IsServer)
         {
-            string matchName = Guid.NewGuid().ToString();
+            string matchName = "";
+            for (int i = 0; i < 5; i++)
+            {
+                matchName += UnityEngine.Random.Range(0, 10);
+            }
 
             BoltMatchmaking.CreateSession(
                 sessionID: matchName
@@ -74,16 +93,23 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
         Debug.LogFormat("Session list updated: {0} total sessions", sessionList.Count);
-
-        foreach (var session in sessionList)
+        if(clientConnectMode == ClientConnectMode.QuickMatch)
         {
-            UdpSession photonSession = session.Value as UdpSession;
-
-            if (photonSession.Source == UdpSessionSource.Photon)
+            foreach (var session in sessionList)
             {
-                BoltNetwork.Connect(photonSession);
+                UdpSession photonSession = session.Value as UdpSession;
+
+                if (photonSession.Source == UdpSessionSource.Photon)
+                {
+                    BoltNetwork.Connect(photonSession);
+                }
             }
         }
+        if(clientConnectMode == ClientConnectMode.JoinRoom)
+        {
+            BoltMatchmaking.JoinSession(roomIDInput.text);
+        }
+        
     }
 
     public Dictionary<uint, GameObject> serverPlayersDictionary = new Dictionary<uint, GameObject>();
