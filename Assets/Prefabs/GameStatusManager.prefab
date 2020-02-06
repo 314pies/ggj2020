@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 533833848341825214}
-  - component: {fileID: 533833848341825221}
   - component: {fileID: 533833848341825209}
   - component: {fileID: 533833848341825208}
   - component: {fileID: 533833848341825211}
-  - component: {fileID: 533833848341825210}
   m_Layer: 5
   m_Name: UIRoot
   m_TagString: Untagged
@@ -42,24 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &533833848341825221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533833848341825220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea8526a57fcd9343b1e5a1307245d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectsToOpen:
-  - {fileID: 533833849975404448}
-  objectsToClose: []
-  gameOverTitle: {fileID: 533833848550173127}
-  leftWinText: Left Wins!
-  rightWinText: Right Wins!
 --- !u!223 &533833848341825209
 Canvas:
   m_ObjectHideFlags: 0
@@ -120,18 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 7991
---- !u!114 &533833848341825210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 533833848341825220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfafc8805e769c646b9d5d3a3b6b08d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &533833848521245417
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,18 +763,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 533833849591184303}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 533833848341825210}
-        m_MethodName: MenuButtonCallback
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &533833849674756865
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,8 +887,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 533833848341825210}
-        m_MethodName: RestartButtonCallback
+      - m_Target: {fileID: 7176553452769594778}
+        m_MethodName: ServerStartNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1149,7 +1106,7 @@ GameObject:
   - component: {fileID: 367889214784231881}
   - component: {fileID: 1503608123972238679}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1259,8 +1216,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 533833848341825210}
-        m_MethodName: RestartButtonCallback
+      - m_Target: {fileID: 7176553452769594778}
+        m_MethodName: ServerStartNewGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1714,6 +1671,10 @@ MonoBehaviour:
   GameOverTitle: {fileID: 533833848550173127}
   leftWinText: Team "Left" Wins!
   rightWinText: Team "Right" Wins!
+  SoldierCount: 3
+  LeftSolderSpawnPoint: {x: -20, y: 0, z: 0}
+  RightSoldierSolderSpawnPoint: {x: 20, y: 0, z: 0}
+  SpawnRange: 1.5
 --- !u!114 &8843424587650249015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1732,7 +1693,7 @@ MonoBehaviour:
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
-  _allowInstantiateOnClient: 1
+  _allowInstantiateOnClient: 0
   _persistThroughSceneLoads: 0
   _sceneObjectDestroyOnDetach: 1
   _sceneObjectAutoAttach: 1

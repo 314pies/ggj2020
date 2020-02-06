@@ -7,11 +7,11 @@ using Bolt;
 using TMPro;
 public class GameStatusManager : EntityBehaviour<IGameStatus>
 {
-    public enum GameStatus { WaitingForPlayer = 1 , Playing, Result };
+    public enum GameStatus { WaitingForPlayer = 1, Playing, Result };
     public GameStatus gameStatus { get { return (GameStatus)state.Status; } }
 
     const string UIGroup = "Game Status UI";
-       
+
     [BoxGroup(UIGroup)]
     public GameObject UIRoot;
 
@@ -39,7 +39,7 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
         state.AddCallback("GameResult", () =>
         {
             var winningSide = (SideEnem)state.GameResult;
-            if(winningSide == SideEnem.Left)
+            if (winningSide == SideEnem.Left)
                 GameOverTitle.text = leftWinText;
             else if (winningSide == SideEnem.Right)
                 GameOverTitle.text = rightWinText;
@@ -60,17 +60,65 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
         if (gameStatus == GameStatus.WaitingForPlayer)
         {
             WaitingForPlayer.SetActive(true);
-            StartButton.SetActive(entity.IsOwner);            
+            StartButton.SetActive(entity.IsOwner);
         }
         else
         {
             WaitingForPlayer.SetActive(false);
         }
-            
 
-        if (gameStatus == GameStatus.Result)        
+
+        if (gameStatus == GameStatus.Result)
             GameResult.SetActive(true);
         else
             GameResult.SetActive(false);
+    }
+
+
+    [Button]
+    void ServerCleanUp()
+    {
+        CleanUpTag[] itemsToCleanUp = FindObjectsOfType(typeof(CleanUpTag)) as CleanUpTag[];
+        for (int i = 0; i < itemsToCleanUp.Length; i++)
+        {
+            if (itemsToCleanUp[i] != null)
+                BoltNetwork.Destroy(itemsToCleanUp[i].gameObject);
+        }
+    }
+
+    [Button]
+    public void ServerStartNewGame()
+    {
+        state.Status = (int)GameStatus.Playing;
+        if (entity.IsOwner)
+        {
+            ServerCleanUp();
+            ServerSpawnSoldiers();
+        }
+    }
+
+    const string soldierSpawnGroup = "Spawn Soldier";
+    [BoxGroup(soldierSpawnGroup)]
+    public int SoldierCount = 3;
+    [BoxGroup(soldierSpawnGroup)]
+    public Vector3 LeftSolderSpawnPoint, RightSoldierSolderSpawnPoint;
+    [BoxGroup(soldierSpawnGroup)]
+    public float SpawnRange = 1.5f;
+    [Button]
+    [BoxGroup(soldierSpawnGroup)]
+    void ServerSpawnSoldiers()
+    {
+        for (int i = 0; i < SoldierCount; i++)
+        {
+            Vector3 RndPos = LeftSolderSpawnPoint;
+            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierL, RndPos, Quaternion.identity);
+
+            RndPos = RightSoldierSolderSpawnPoint;
+            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierR, RndPos, Quaternion.identity);
+
+        }
     }
 }

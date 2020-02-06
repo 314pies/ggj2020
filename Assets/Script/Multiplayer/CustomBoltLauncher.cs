@@ -54,8 +54,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             _player.TakeControl();
-            SpawnSoldiers();
-
+           
             BoltNetwork.Instantiate(BoltPrefabs.GameStatusManager);
         }
         UI.SetActive(false);
@@ -100,27 +99,6 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             }
         }
     }
-
-
-    public int SoldierCount = 3;
-    public Vector3 LeftSolderSpawnPoint, RightSoldierSolderSpawnPoint;
-    public float SpawnRange = 1.5f;
-    void SpawnSoldiers()
-    {
-        for (int i = 0; i < SoldierCount; i++)
-        {
-            Vector3 RndPos = LeftSolderSpawnPoint;
-            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
-
-            BoltNetwork.Instantiate(BoltPrefabs.SoldierL, RndPos, Quaternion.identity);
-
-            RndPos = RightSoldierSolderSpawnPoint;
-            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
-            BoltNetwork.Instantiate(BoltPrefabs.SoldierR, RndPos, Quaternion.identity);
-
-        }
-    }
-
 
 
     //Equip Item
