@@ -15,14 +15,21 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
         state.SetTransforms(state.trans, transform);
         state.SetAnimator(GetComponent<Animator>());
 
-        state.AddCallback("localScale", ()=> {
-            transform.localScale = state.localScale;
+        state.AddCallback("Flip", () =>
+        {
+            GetComponent<SpriteRenderer>().flipX = state.Flip;
         });
 
         state.AddCallback("CarryingItem", () =>
         {
             //playerInteraction.CurrendHoldingItem = state.HoldingItem;
         });
+    }
+
+    void Update()
+    {
+        if (entity.IsOwner)
+            state.Flip = GetComponent<SpriteRenderer>().flipX;
     }
 
     public override void ControlGained()
@@ -44,7 +51,7 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
         input.Position = transform.position;
         input.Velocity = GetComponent<Rigidbody2D>().velocity;
         input.Rotation = transform.rotation;
-        input.Scale = transform.localScale;
+        input.Flip = GetComponent<SpriteRenderer>().flipX;
         entity.QueueInput(input);
     }
 
@@ -65,8 +72,8 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
                 transform.position = cmd.Input.Position;
                 GetComponent<Rigidbody2D>().velocity = cmd.Input.Velocity;
                 transform.rotation = cmd.Input.Rotation;
-                transform.localScale = cmd.Input.Scale;
-                state.localScale = transform.localScale;
+                //GetComponent<SpriteRenderer>().flipX = cmd.Input.Flip;
+                state.Flip = cmd.Input.Flip;
             }
 
             GetComponent<PlayerAnimator>().UpdateAnimator();
