@@ -9,6 +9,7 @@ namespace CliffLeeCL
     /// <summary>
     /// The class controls how game over menu works.
     /// </summary>
+    [System.Obsolete]
     public class GameOverMenu : MonoBehaviour
     {
         /// <summary>

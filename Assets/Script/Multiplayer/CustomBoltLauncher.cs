@@ -55,6 +55,8 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             _player.TakeControl();
             SpawnSoldiers();
+
+            BoltNetwork.Instantiate(BoltPrefabs.GameStatusManager);
         }
         UI.SetActive(false);
     }
