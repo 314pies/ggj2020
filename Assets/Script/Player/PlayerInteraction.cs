@@ -14,7 +14,16 @@ namespace CliffLeeCL
         AudioSource audioSource;
         PlayerAgent playerAgent { get { return GetComponent<PlayerAgent>(); } }
         [ShowInInspector]
-        public BoltEntity CurrentCarryingItem { get { return playerAgent.state.CarryingItem; } }
+        public BoltEntity CurrentCarryingItem
+        {
+            get
+            {
+                if (playerAgent.entity.IsAttached)
+                    return playerAgent.state.CarryingItem;
+                else
+                    return null;
+            }
+        }
         public KeyCode UseKey = KeyCode.Space;
         public float PickingRadius = 1.0f;
         public LayerMask interactLayerMask;
@@ -67,7 +76,7 @@ namespace CliffLeeCL
                 }
                 if (CurrentCarryingItem != null)
                 {
-                    if(CurrentCarryingItem.GetComponent<ItemAgent>().itemState == ItemStateEnum.New)
+                    if (CurrentCarryingItem.GetComponent<ItemAgent>().itemState == ItemStateEnum.New)
                     {
                         //Ready to launch
                         Arrow.SetActive(true);
