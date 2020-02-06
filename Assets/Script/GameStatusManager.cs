@@ -7,12 +7,19 @@ using Bolt;
 using TMPro;
 public class GameStatusManager : EntityBehaviour<IGameStatus>
 {
-    public enum GameStatus { WaitingForPlayer, Playing, Result };
+    public enum GameStatus { WaitingForPlayer = 1 , Playing, Result };
     public GameStatus gameStatus { get { return (GameStatus)state.Status; } }
 
     const string UIGroup = "Game Status UI";
+       
     [BoxGroup(UIGroup)]
+    public GameObject UIRoot;
+
+    const string waitingForPlayerGroup = UIGroup + "/Wait for Players";
+    [BoxGroup(waitingForPlayerGroup)]
     public GameObject WaitingForPlayer;
+    [BoxGroup(waitingForPlayerGroup)]
+    public GameObject StartButton;
 
     const string gameResultGroup = UIGroup + "/Game Result";
     [BoxGroup(gameResultGroup)]
@@ -24,13 +31,11 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
 
     public override void Attached()
     {
+        state.AddCallback("Status", OnGameStatusUpdated);
         if (entity.IsOwner)
         {
-            state.Status = (int)GameStatus.Playing;
+            state.Status = (int)GameStatus.WaitingForPlayer;
         }
-
-        state.AddCallback("Status", OnGameStatusUpdated);
-
         state.AddCallback("GameResult", () =>
         {
             var winningSide = (SideEnem)state.GameResult;
@@ -52,6 +57,17 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
 
     void OnGameStatusUpdated()
     {
+        if (gameStatus == GameStatus.WaitingForPlayer)
+        {
+            WaitingForPlayer.SetActive(true);
+            StartButton.SetActive(entity.IsOwner);            
+        }
+        else
+        {
+            WaitingForPlayer.SetActive(false);
+        }
+            
+
         if (gameStatus == GameStatus.Result)        
             GameResult.SetActive(true);
         else
