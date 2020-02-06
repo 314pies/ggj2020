@@ -120,6 +120,8 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
     public Vector3 LeftSolderSpawnPoint, RightSoldierSolderSpawnPoint;
     [BoxGroup(soldierSpawnGroup)]
     public float SpawnGap = 0.15f;
+    [BoxGroup(soldierSpawnGroup)]
+    public bool AutoBalance = true;
     [Button]
     [BoxGroup(soldierSpawnGroup)]
     void ServerSpawnSoldiers()
@@ -147,10 +149,14 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
             rightTeamSoldiersCount = rightTeamPlayerCount;
 
         //Balance
-        if (leftTeamPlayerCount > rightTeamPlayerCount)
-            rightTeamSoldiersCount += (leftTeamPlayerCount - rightTeamPlayerCount);
-        else if (leftTeamPlayerCount < rightTeamPlayerCount)
-            leftTeamSoldiersCount += (rightTeamPlayerCount - leftTeamPlayerCount);
+        if (AutoBalance)
+        {
+            if (leftTeamPlayerCount > rightTeamPlayerCount)
+                rightTeamSoldiersCount += (leftTeamPlayerCount - rightTeamPlayerCount);
+            else if (leftTeamPlayerCount < rightTeamPlayerCount)
+                leftTeamSoldiersCount += (rightTeamPlayerCount - leftTeamPlayerCount);
+        }
+       
 
         Debug.Log("Spawning " + leftTeamSoldiersCount + " soldiers for left team.");
         Vector3 spawnPos = LeftSolderSpawnPoint;
