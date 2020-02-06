@@ -34,9 +34,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
 
         state.AddCallback("Equiping", () =>
         {
+            UpdateAnimation();
             if (isEntityOwner)
-            {
-                UpdateAnimation();
+            {               
                 CalculateStats();
             }
         }

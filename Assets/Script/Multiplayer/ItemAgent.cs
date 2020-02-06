@@ -39,6 +39,7 @@ public class ItemAgent : EntityBehaviour<IItem>
             if (state.Holder.HoldBy != null)
             {
                 //Disable rigid body so it will follow parent transform
+                GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 GetComponent<Rigidbody2D>().isKinematic = true;
                 GetComponent<Collider2D>().enabled = false;
                 transform.parent = state.Holder.HoldBy.transform;
