@@ -82,9 +82,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   side: 2
-  InitialEquipments: []
-  ServerBaseAttKnockBackForce: {x: 10, y: 30}
-  serverKnockBackCooldown: 5
+  InitialEquipments:
+  - {fileID: 460643650246824878, guid: 029e06d4c733fba4eba098b64ebc050c, type: 3}
+  - {fileID: 460643650246824878, guid: 6a75285bc50e7004295ad9fb88a51145, type: 3}
+  ServerBaseAttKnockBackForce: {x: 50, y: 30}
+  serverKnockBackCooldown: 2.5
   serverKnockBackDropItemDelay: 0.15
   ServerModAttKnockBackForce: {x: 0, y: 0}
   ServerBaseMass: 0
