@@ -12,7 +12,18 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public GameObject UI;
     public Vector3 PlayerSpawnPoint;
 
+    public bool IsSinglePlayer = false;
     public bool EnableDebugOnGUI = false;
+
+    void Start()
+    {
+        if (IsSinglePlayer)
+        {
+            StartServer();
+            UI.SetActive(false);
+        }
+    }
+
     void OnGUI()
     {
         if (!EnableDebugOnGUI) return;
