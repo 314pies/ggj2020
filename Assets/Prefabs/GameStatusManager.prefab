@@ -1903,7 +1903,7 @@ MonoBehaviour:
   GameOverTitle: {fileID: 533833848550173127}
   leftWinText: Team "Left" Wins!
   rightWinText: Team "Right" Wins!
-  SoldierBaseCount: 2
+  SoldierBaseCount: 3
   LeftSolderSpawnPoint: {x: -20, y: 0, z: 0}
   RightSoldierSolderSpawnPoint: {x: 20, y: 0, z: 0}
   SpawnGap: 3
