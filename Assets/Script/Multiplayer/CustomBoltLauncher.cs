@@ -12,8 +12,10 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public GameObject UI;
     public Vector3 PlayerSpawnPoint;
 
+    public bool EnableDebugOnGUI = false;
     void OnGUI()
     {
+        if (!EnableDebugOnGUI) return;
         if (BoltNetwork.IsRunning) { return; }
         GUILayout.BeginArea(new Rect(10, 10, Screen.width - 20, Screen.height - 20));
 
