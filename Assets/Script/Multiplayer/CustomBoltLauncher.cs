@@ -124,7 +124,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     //Equip Item
     public override void OnEvent(PlayerPickItemReq evnt)
     {
-        Debug.Log("Recieve PlayerPickDropItemReq " + evnt.Player);
+        Debug.Log("Receive PlayerPickDropItemReq " + evnt.Player);
         evnt.Player.GetComponent<PlayerInteraction>().ServerSetCarryingItem(evnt.Item);
     }
 
@@ -133,15 +133,21 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         evnt.Player.GetComponent<PlayerInteraction>().ServerLaunchCarryingItem(evnt.ArrowRotation);
     }
 
-    [Button]
-    private void SpawnBoltPrefab(GameObject item,Vector3 position)
+    public override void OnEvent(RepairItemReq evnt)
     {
-        BoltNetwork.Instantiate(item, position,item.transform.rotation);
+        if (evnt.Item != null)
+            evnt.Item.GetComponent<ItemAgent>().ServerSetItemState(ItemStateEnum.New);
+    }
+
+    [Button]
+    private void SpawnBoltPrefab(GameObject item, Vector3 position)
+    {
+        BoltNetwork.Instantiate(item, position, item.transform.rotation);
     }
 
     [Button]
     private void SpawnArmor()
     {
-        BoltNetwork.Instantiate(BoltPrefabs.Armor,Vector3.zero,Quaternion.identity);
+        BoltNetwork.Instantiate(BoltPrefabs.Armor, Vector3.zero, Quaternion.identity);
     }
 }

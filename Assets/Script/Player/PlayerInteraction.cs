@@ -72,7 +72,9 @@ namespace CliffLeeCL
                 if (CurrentCarryingItem == null)
                 {
                     var item = GetItemInRange(PickingRadius);
-                    ClientSendHoldItemReq(item.GetComponent<BoltEntity>());
+                    Debug.Log("GetItemInRange result: " + item, item);
+                    if (item != null)
+                        ClientSendHoldItemReq(item.GetComponent<BoltEntity>());
                 }
                 if (CurrentCarryingItem != null)
                 {

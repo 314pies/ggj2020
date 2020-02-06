@@ -1068,6 +1068,28 @@
       "Name": "LaunchCarryingItem",
       "Guid": "114be9c3-87f6-4498-902e-5feba89fd808",
       "Groups": []
+    },
+    {
+      "$type": "Bolt.Compiler.EventDefinition, bolt.compiler",
+      "Properties": [
+        {
+          "Name": "Item",
+          "Enabled": true,
+          "Expanded": true,
+          "ReplicationMode": 1,
+          "Priority": 1,
+          "PropertyType": {
+            "$type": "Bolt.Compiler.PropertyTypeEntity, bolt.compiler"
+          },
+          "AssetSettings": {
+            "$type": "Bolt.Compiler.PropertyEventSettings, bolt.compiler"
+          }
+        }
+      ],
+      "EntitySenders": 3,
+      "Name": "RepairItemReq",
+      "Guid": "c8ec5b54-17f0-468b-886a-ace960633571",
+      "Groups": []
     }
   ],
   "ActiveGroup": "Everything"
