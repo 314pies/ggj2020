@@ -23,7 +23,7 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
 
     const string gameResultGroup = UIGroup + "/Game Result";
     [BoxGroup(gameResultGroup)]
-    public GameObject GameResult;
+    public GameObject GameResult,RestartButton;
     [BoxGroup(gameResultGroup)]
     public TMP_Text GameOverTitle;
     [BoxGroup(gameResultGroup)]
@@ -69,7 +69,10 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
 
 
         if (gameStatus == GameStatus.Result)
+        {
             GameResult.SetActive(true);
+            RestartButton.SetActive(entity.IsOwner);
+        }           
         else
             GameResult.SetActive(false);
     }

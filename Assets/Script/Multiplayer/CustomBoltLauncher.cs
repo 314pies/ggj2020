@@ -11,6 +11,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
     public GameObject UI;
     public Vector3 PlayerSpawnPoint;
+
     void OnGUI()
     {
         if (BoltNetwork.IsRunning) { return; }
@@ -54,12 +55,19 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             _player.TakeControl();
-           
+
+            ServerAssignPlayerID(_player);
+
             BoltNetwork.Instantiate(BoltPrefabs.GameStatusManager);
         }
         UI.SetActive(false);
     }
 
+    void ServerAssignPlayerID(BoltEntity player)
+    {
+        var playerList = GameObject.FindGameObjectsWithTag("Player");
+        player.GetComponent<PlayerAgent>().ServerSetPlayerID(playerList.Length);
+    }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
@@ -84,6 +92,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
             serverPlayersDictionary.Add(connection.ConnectionId, _player.gameObject);
             _player.AssignControl(connection);
+            ServerAssignPlayerID(_player);
         }
     }
 

@@ -24,6 +24,33 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
         {
             //playerInteraction.CurrendHoldingItem = state.HoldingItem;
         });
+
+        state.AddCallback("PlayerID", () =>
+        {
+            Debug.Log("Player ID: " + state.PlayerID, this);
+            pointer.color = state.PlayerID % 2 == 1 ? LeftTeamColor : RightTeamColor;
+            playerIDText.color = state.PlayerID % 2 == 1 ? LeftTeamColor : RightTeamColor;
+
+            if (entity.HasControl)
+            {
+                playerIDText.text = "You";
+                playerIDText.color = Color.white;
+            }
+            else
+            {
+                playerIDText.text = "P " + state.PlayerID;
+            }
+        });
+    }
+
+    const string playerIDTagGroup = "Player ID Tag";
+    public TMPro.TMP_Text playerIDText;
+    public SpriteRenderer pointer;
+    public Color LeftTeamColor = Color.blue, RightTeamColor = Color.red;
+
+    public void ServerSetPlayerID(int playerID)
+    {
+        state.PlayerID = playerID;       
     }
 
     void Update()
