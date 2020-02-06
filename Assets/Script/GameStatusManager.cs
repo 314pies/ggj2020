@@ -23,7 +23,7 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
 
     const string gameResultGroup = UIGroup + "/Game Result";
     [BoxGroup(gameResultGroup)]
-    public GameObject GameResult,RestartButton;
+    public GameObject GameResult, RestartButton;
     [BoxGroup(gameResultGroup)]
     public TMP_Text GameOverTitle;
     [BoxGroup(gameResultGroup)]
@@ -72,7 +72,7 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
         {
             GameResult.SetActive(true);
             RestartButton.SetActive(entity.IsOwner);
-        }           
+        }
         else
             GameResult.SetActive(false);
     }
@@ -100,28 +100,66 @@ public class GameStatusManager : EntityBehaviour<IGameStatus>
         }
     }
 
+    public GameObject[] PlayersList
+    {
+        get
+        {
+            return GameObject.FindGameObjectsWithTag("Player");
+        }
+    }
     const string soldierSpawnGroup = "Spawn Soldier";
     [BoxGroup(soldierSpawnGroup)]
-    public int SoldierCount = 3;
+    public int SoldierBaseCount = 3;
     [BoxGroup(soldierSpawnGroup)]
     public Vector3 LeftSolderSpawnPoint, RightSoldierSolderSpawnPoint;
     [BoxGroup(soldierSpawnGroup)]
-    public float SpawnRange = 1.5f;
+    public float SpawnGap = 0.15f;
     [Button]
     [BoxGroup(soldierSpawnGroup)]
     void ServerSpawnSoldiers()
     {
-        for (int i = 0; i < SoldierCount; i++)
+        int leftTeamPlayerCount = 0, rightTeamPlayerCount = 0; ;
+        var _playerList = PlayersList;
+        foreach (var player in _playerList)
         {
-            Vector3 RndPos = LeftSolderSpawnPoint;
-            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
+            if (player.GetComponent<PlayerAgent>().state.PlayerID % 2 == 1)
+            {
+                leftTeamPlayerCount++;
+            }
+            else
+            {
+                rightTeamPlayerCount++;
+            }
+        }
 
-            BoltNetwork.Instantiate(BoltPrefabs.SoldierL, RndPos, Quaternion.identity);
+        int leftTeamSoldiersCount = SoldierBaseCount;
+        if (leftTeamPlayerCount > SoldierBaseCount)
+            leftTeamSoldiersCount = leftTeamPlayerCount;
 
-            RndPos = RightSoldierSolderSpawnPoint;
-            RndPos.x = RndPos.x + UnityEngine.Random.Range(-SpawnRange, SpawnRange);
-            BoltNetwork.Instantiate(BoltPrefabs.SoldierR, RndPos, Quaternion.identity);
+        int rightTeamSoldiersCount = SoldierBaseCount;
+        if (rightTeamSoldiersCount > SoldierBaseCount)
+            rightTeamSoldiersCount = rightTeamPlayerCount;
 
+        //Balance
+        if (leftTeamPlayerCount > rightTeamPlayerCount)
+            rightTeamSoldiersCount += (leftTeamPlayerCount - rightTeamPlayerCount);
+        else if (leftTeamPlayerCount < rightTeamPlayerCount)
+            leftTeamSoldiersCount += (rightTeamPlayerCount - leftTeamPlayerCount);
+
+        Debug.Log("Spawning " + leftTeamSoldiersCount + " soldiers for left team.");
+        Vector3 spawnPos = LeftSolderSpawnPoint;       
+        for (int i=0;i< leftTeamSoldiersCount; i++)
+        {
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierL, spawnPos, Quaternion.identity);
+            spawnPos.x += (-SpawnGap);
+        }
+
+        Debug.Log("Spawning " + rightTeamSoldiersCount + " soldiers for right team.");
+        spawnPos = RightSoldierSolderSpawnPoint;
+        for (int i = 0; i < rightTeamSoldiersCount; i++)
+        {
+            BoltNetwork.Instantiate(BoltPrefabs.SoldierR, spawnPos, Quaternion.identity);
+            spawnPos.x += (SpawnGap);
         }
     }
 }
