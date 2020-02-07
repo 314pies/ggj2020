@@ -7,6 +7,9 @@ using UnityEngine;
 using CliffLeeCL;
 using Sirenix.OdinInspector;
 using TMPro;
+using Bolt;
+using UdpKit.Platform.Photon;
+
 public class CustomBoltLauncher : Bolt.GlobalEventListener
 {
     public GameObject UI;
@@ -49,9 +52,10 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public void StartServer()
     {
         BoltLauncher.StartServer();
+        NotificationManager.ShowNotification("Creating Server...", true);
     }
 
-    public enum ClientConnectMode { QuickMatch,JoinRoom }
+    public enum ClientConnectMode { QuickMatch, JoinRoom }
     ClientConnectMode clientConnectMode;
     public void StartClient()
     {
@@ -61,13 +65,16 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
     public void StartQuickMatch()
     {
         clientConnectMode = ClientConnectMode.QuickMatch;
+        NotificationManager.ShowNotification("Searching...", true);
         StartClient();
     }
 
     public TMP_InputField roomIDInput;
     public void StartJoinRoom()
     {
+        if (string.IsNullOrEmpty(roomIDInput.text)) { return; }
         clientConnectMode = ClientConnectMode.JoinRoom;
+        NotificationManager.ShowNotification("Joining " + roomIDInput.text + "...", true);
         StartClient();
     }
 
@@ -91,21 +98,65 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             ServerAssignPlayerID(_player);
 
             BoltNetwork.Instantiate(BoltPrefabs.GameStatusManager);
+            NotificationManager.CloseNotification();
+            UI.SetActive(false);
         }
-        UI.SetActive(false);
+        if (BoltNetwork.IsClient)
+        {
+            if (clientConnectMode == ClientConnectMode.JoinRoom)
+            {
+                Debug.Log("Joining Session " + roomIDInput.text);
+                //BoltMatchmaking.JoinSession(roomIDInput.text);
+                //BoltMatchmaking.JoinSession(PhotonSession.Build(roomIDInput.text));
+                BoltNetwork.Connect(PhotonSession.Build(roomIDInput.text));
+            }
+        }
     }
 
+    public override void SessionConnected(UdpSession session, IProtocolToken token)
+    {
+        Debug.Log("SessionConnected. " + session);
+    }
+
+    public override void SessionConnectFailed(UdpSession session, IProtocolToken token)
+    {
+        Debug.Log("SessionConnectFailed. " + session);
+        NotificationManager.ShowNotification("Failed to connect to " + session.HostName, false, true);
+        if (BoltNetwork.IsRunning)
+            BoltNetwork.Shutdown();
+    }
+
+
+    public override void BoltStartFailed()
+    {
+        Debug.Log("BoltStartFailed.");
+        NotificationManager.ShowNotification("Multilayer Start Failed.", false, true);
+        UI.SetActive(true);
+    }
+
+    public override void ConnectFailed(UdpEndPoint endpoint, IProtocolToken token)
+    {
+        Debug.Log("ConnectFailed. endpoint: " + endpoint);
+
+        NotificationManager.ShowNotification("Failed to connect to server. ", false, true);
+        UI.SetActive(true);
+    }
+
+
+    int playerId = 0;
     void ServerAssignPlayerID(BoltEntity player)
     {
-        var playerList = GameObject.FindGameObjectsWithTag("Player");
-        player.GetComponent<PlayerAgent>().ServerSetPlayerID(playerList.Length);
+        //var playerList = GameObject.FindGameObjectsWithTag("Player");
+        playerId++;
+        player.GetComponent<PlayerAgent>().ServerSetPlayerID(playerId);
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
     {
         Debug.LogFormat("Session list updated: {0} total sessions", sessionList.Count);
-        if(clientConnectMode == ClientConnectMode.QuickMatch)
+        if (clientConnectMode == ClientConnectMode.QuickMatch)
         {
+            NotificationManager.ShowNotification("Searching... " + sessionList.Count + "games found", true);
             foreach (var session in sessionList)
             {
                 UdpSession photonSession = session.Value as UdpSession;
@@ -116,16 +167,12 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
                 }
             }
         }
-        if(clientConnectMode == ClientConnectMode.JoinRoom)
-        {
-            BoltMatchmaking.JoinSession(roomIDInput.text);
-        }
-        
     }
 
     public Dictionary<uint, GameObject> serverPlayersDictionary = new Dictionary<uint, GameObject>();
     public override void Connected(BoltConnection connection)
     {
+        Debug.Log("Connected. " + connection);
         if (BoltNetwork.IsServer)
         {
             var _player = BoltNetwork.Instantiate(BoltPrefabs.Player, PlayerSpawnPoint, Quaternion.identity);
@@ -133,10 +180,12 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             _player.AssignControl(connection);
             ServerAssignPlayerID(_player);
         }
+        NotificationManager.CloseNotification();
     }
 
     public override void Disconnected(BoltConnection connection)
     {
+        Debug.Log("Disconnected. " + connection);
         if (BoltNetwork.IsServer)
         {
             if (serverPlayersDictionary.ContainsKey(connection.ConnectionId))
@@ -145,6 +194,12 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
                 serverPlayersDictionary.Remove(connection.ConnectionId);
                 BoltNetwork.Destroy(_p);
             }
+        }
+        if (BoltNetwork.IsClient)
+        {
+            NotificationManager.ShowNotification("Disconnected from server.", false, true);
+            BoltNetwork.Shutdown();
+            UI.SetActive(true);
         }
     }
 
