@@ -14,6 +14,7 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
 
         state.SetTransforms(state.trans, transform);
         state.SetAnimator(GetComponent<Animator>());
+        state.SetTransforms(state.Arrow.Rotation, GetComponent<PlayerInteraction>().Arrow.transform);
 
         state.AddCallback("Flip", () =>
         {
@@ -34,12 +35,17 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
             if (entity.HasControl)
             {
                 playerIDText.text = "You";
-                playerIDText.color = Color.white;
+                //playerIDText.color = Color.white;
             }
             else
             {
                 playerIDText.text = "P " + state.PlayerID;
             }
+        });
+
+        state.AddCallback("Arrow.IsActive", () =>
+        {
+            GetComponent<PlayerInteraction>().Arrow.SetActive(state.Arrow.IsActive);
         });
     }
 
@@ -50,7 +56,7 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
 
     public void ServerSetPlayerID(int playerID)
     {
-        state.PlayerID = playerID;       
+        state.PlayerID = playerID;
     }
 
     void Update()
@@ -79,6 +85,8 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
         input.Velocity = GetComponent<Rigidbody2D>().velocity;
         input.Rotation = transform.rotation;
         input.Flip = GetComponent<SpriteRenderer>().flipX;
+        input.ArrorRotation = GetComponent<PlayerInteraction>().Arrow.transform.localEulerAngles.z;
+        input.ArrowActive = GetComponent<PlayerInteraction>().Arrow.activeSelf;
         entity.QueueInput(input);
     }
 
@@ -101,6 +109,10 @@ public class PlayerAgent : EntityBehaviour<IPlayerState>
                 transform.rotation = cmd.Input.Rotation;
                 //GetComponent<SpriteRenderer>().flipX = cmd.Input.Flip;
                 state.Flip = cmd.Input.Flip;
+
+                GetComponent<PlayerInteraction>().Arrow.transform.localEulerAngles = new Vector3(0, 0, cmd.Input.ArrorRotation);
+                //GetComponent<PlayerInteraction>().Arrow.SetActive(cmd.Input.ArrowActive);
+                state.Arrow.IsActive = cmd.Input.ArrowActive;
             }
 
             GetComponent<PlayerAnimator>().UpdateAnimator();
