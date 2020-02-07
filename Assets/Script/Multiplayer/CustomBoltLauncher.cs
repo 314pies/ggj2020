@@ -140,6 +140,8 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
 
         NotificationManager.ShowNotification("Failed to connect to server. ", false, true);
         UI.SetActive(true);
+        if (BoltNetwork.IsRunning)
+            BoltNetwork.Shutdown();
     }
 
 
@@ -156,7 +158,7 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
         Debug.LogFormat("Session list updated: {0} total sessions", sessionList.Count);
         if (clientConnectMode == ClientConnectMode.QuickMatch)
         {
-            NotificationManager.ShowNotification("Searching... " + sessionList.Count + "games found", true);
+            NotificationManager.ShowNotification("Searching... " + sessionList.Count + " games found", true);
             foreach (var session in sessionList)
             {
                 UdpSession photonSession = session.Value as UdpSession;
@@ -180,7 +182,11 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             _player.AssignControl(connection);
             ServerAssignPlayerID(_player);
         }
-        NotificationManager.CloseNotification();
+        if (BoltNetwork.IsClient)
+        {
+            NotificationManager.CloseNotification();
+            UI.SetActive(false);
+        }           
     }
 
     public override void Disconnected(BoltConnection connection)
@@ -200,6 +206,8 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             NotificationManager.ShowNotification("Disconnected from server.", false, true);
             BoltNetwork.Shutdown();
             UI.SetActive(true);
+            if (BoltNetwork.IsRunning)
+                BoltNetwork.Shutdown();
         }
     }
 
