@@ -35,6 +35,7 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         state.AddCallback("Equiping", () =>
         {
             UpdateAnimation();
+            //audioSource.PlayOneShot(GetSound);
             if (isEntityOwner)
             {
                 CalculateStats();
@@ -74,6 +75,9 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
         {
             return;
         }
+       
+        if (hit.gameObject.tag == "Soldier")
+            audioSource.PlayOneShot(DropSound);
 
         if (isEntityOwner)
             ServerOnHit(hit.gameObject);
@@ -383,6 +387,10 @@ public class SoldierAgent : EntityBehaviour<ISoldier>
 
     #endregion
 
+    const string soundEffectGroup = "Sound Effects";
+    [BoxGroup(soundEffectGroup)]
+    public AudioClip DropSound,GetSound;
+    AudioSource audioSource { get { return GetComponent<AudioSource>(); } }
 
 #if UNITY_EDITOR
     const string testGroup = "Local Test";
