@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class RepairStation : MonoBehaviour
 {
     public enum Status { Idle, CapturingInput }
-    public string[] WeaponRepairCommand = new string[] {"X","Z","Z","X" };
+    public string[] WeaponRepairCommand = new string[] { "X", "Z", "Z", "X" };
     public string[] ArmorRepairCommand = new string[] { "C", "X", "Z", "C" };
 
     [ReadOnly]
@@ -38,7 +38,7 @@ public class RepairStation : MonoBehaviour
                 if (itemAgent.itemType == ItemTypeEnum.Weapon)
                     command = WeaponRepairCommand;
                 else if (itemAgent.itemType == ItemTypeEnum.Armor)
-                         command = ArmorRepairCommand;
+                    command = ArmorRepairCommand;
 
                 InitialCapturing(playerAgent.gameObject, command);
             }
@@ -51,6 +51,45 @@ public class RepairStation : MonoBehaviour
         {
             CapturingInput();
         }
+        SetFixingAnimationStatus();
+    }
+
+    public GameObject FixingAnimation;
+    public Vector3 FixingAnimationTriggerAdjust = new Vector3(0.6f, 0.6f, 0.6f);
+    List<Collider2D> playerList = new List<Collider2D>();
+    void SetFixingAnimationStatus()
+    {
+        bool activeFixingAnim = false;
+        ContactFilter2D Filter = new ContactFilter2D();
+        //var pos = new Vector3(transform.position.x + GetComponent<BoxCollider2D>().offset.x, transform.position.y + GetComponent<BoxCollider2D>().offset.y);
+        //Physics2D.OverlapBox(pos, GetComponent<BoxCollider2D>().size + new Vector2(0.4f,0.4f), 0, Filter, playerList);
+        var col = GetComponent<BoxCollider2D>();
+        Physics2D.OverlapBox(col.bounds.center, col.bounds.extents + FixingAnimationTriggerAdjust, col.transform.rotation.x, Filter, playerList);
+
+        if (playerList.Count > 0)
+        {
+            foreach (var p in playerList)
+            {
+                if (p.gameObject.tag == "Player")
+                {
+                    if (p.GetComponent<PlayerAgent>() != null)
+                    {
+                        if (p.GetComponent<PlayerAgent>().state.CarryingItem != null)
+                        {
+                            if (p.GetComponent<PlayerAgent>().state.CarryingItem.GetComponent<ItemAgent>() != null)
+                            {
+                                if (ItemStateEnum.Garbage == (ItemStateEnum)p.GetComponent<PlayerAgent>().state.CarryingItem.GetComponent<ItemAgent>().itemState)
+                                {
+                                    activeFixingAnim = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        FixingAnimation.SetActive(activeFixingAnim);
     }
 
     void InitialCapturing(GameObject player, string[] command = null)
