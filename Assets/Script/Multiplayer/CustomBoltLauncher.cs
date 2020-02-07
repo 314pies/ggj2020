@@ -126,6 +126,11 @@ public class CustomBoltLauncher : Bolt.GlobalEventListener
             BoltNetwork.Shutdown();
     }
 
+    public override void BoltShutdownBegin(AddCallback registerDoneCallback)
+    {
+        Debug.Log("BoltShutdownBegin.");
+        UI.SetActive(true);
+    }
 
     public override void BoltStartFailed()
     {
