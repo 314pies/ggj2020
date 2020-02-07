@@ -744,6 +744,8 @@ MonoBehaviour:
   FixingAnimation: {fileID: 3640521484435373352}
   FixingAnimationTriggerAdjust: {x: 0.6, y: 0.6, z: 0.6}
   currentIndex: 0
+  TypeSound: {fileID: 8300000, guid: 6140f8aa03264134ab7b1febff4c1d8a, type: 3}
+  FinishSound: {fileID: 8300000, guid: fbbc26a8fa56b274e97aed643ffa9417, type: 3}
 --- !u!212 &8697069505770281708
 SpriteRenderer:
   m_ObjectHideFlags: 0

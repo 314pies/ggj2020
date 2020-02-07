@@ -129,6 +129,7 @@ public class RepairStation : MonoBehaviour
         {
             InputKeyText(InputKeysUI[currentIndex]).text = commandKey;
             currentIndex++;
+            audioSource.PlayOneShot(TypeSound);
         }
         else
         {
@@ -136,6 +137,7 @@ public class RepairStation : MonoBehaviour
             {
                 if (Input.GetKeyDown(vKey) && keyCode != vKey)
                 {
+                    audioSource.PlayOneShot(TypeSound);
                     ClearInput();
                 }
             }
@@ -150,6 +152,10 @@ public class RepairStation : MonoBehaviour
             var repairReq = RepairItemReq.Create(Bolt.GlobalTargets.OnlyServer);
             repairReq.Item = CurrentCapturingPlayer.GetComponent<PlayerAgent>().state.CarryingItem; ;
             repairReq.Send();
+            audioSource.PlayOneShot(FinishSound);
         }
     }
+
+    public AudioClip TypeSound, FinishSound;
+    AudioSource audioSource { get { return GetComponent<AudioSource>(); } }
 }

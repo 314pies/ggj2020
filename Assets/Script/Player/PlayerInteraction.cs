@@ -91,6 +91,7 @@ namespace CliffLeeCL
                 {
                     //Launch item
                     ClientSentLaunchCarryingItemReq();
+                    audioSource.PlayOneShot(impact);
                     Arrow.SetActive(false);
                 }
             }
